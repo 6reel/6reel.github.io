@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width"=head>
+    <title>Document</title>
+    <script src="script.js" defer></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <img id="elemImage" src="imgs/coeur.png" name="image" width="150" height="120" />
+
+<div class="bandeau-cde">
+ 
+  <div class="bandeau-cde-left">
+    <button id="populate" onclick="populate()"><img src="imgs/refresh.png" alt="icone" style="height:50px;" /></button>
+    <button onclick="effacer()"><img src="imgs/poubelle.png" alt="icone" style="height:50px;" /></button>
+    <button onclick="verifier()"><img src="imgs/dizaine_check.jpg" alt="icone" style="height:50px;" /></button>
+    <button id="fullscreen-button"><img src="imgs/fullscreen.png" alt="icone" style="height:50px;" /></button>
+  </div>
+ 
+  <div class="bandeau-cde-right">
+    <div class="bandeau-cde-right-groupe">
+      <img src="imgs/dizaine.jpg" alt="">
+ 
+      <div class="groupe-area">
+        <div class="groupe-bouton-dizaine">
+          <button onclick="nbrApresDiz()">▲</button>
+          <button onclick="nbrAvantDiz()">▼</button>
+        </div>
+        <output id="affichagediz">0</output>
+      </div>
+    </div>
+ 
+    <div class="bandeau-cde-right-groupe">
+      <img src="imgs/unite.jpg" alt="">
+ 
+      <div class="groupe-area">
+        <output id="affichageuni">0</output>
+        <div class="groupe-bouton-unite">
+          <button onclick="nbrApresUni()">▲</button>
+          <button onclick="nbrAvantUni()">▼</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="bandeau-cde-right-groupe">
+      <button class="btn-valid" onclick="validNombre()">✔</button>
+    </div>
+  </div>
+</div>
+<div class="bandeau-domino-left">
+  <div>
+    <output id="titre-domino">Dizaine réalisée</output>
+  </div>
+  <div id="affichage_domino">
+  </div>  
+</div>
+<div class="bandeau-domino-right">
+</div>
+
+<!--Boite de dialogue*/-->
+
+<dialog id="modal-info">
+    <p class="modal-header"></p>
+    <p class="modal-content"></p>
+    <p class="modal-footer"><button data-role="close">Fermer</button></p>
+  </dialog>
+</body>
+
+</html>
