@@ -37,17 +37,33 @@ cursor: pointer;
 width: 20px; /* Ajustez la taille de l'image ici */
 height: auto;
 }
-.carousel__slide img {
-width: 100%;
-height: auto;
-max-width: 100%;
-object-fit: cover;
+.carousel__slide > img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
 }
+
+.audio-control img {
+  width: 30px;
+  height: auto;
+}
+
+
 .carousel {
 width: 100%;
 max-width: 1200px; /* Ajustez selon vos besoins */
 margin: 0 auto;
 }
+    
+.vertical-image {
+  width: auto;
+  height: 70vh;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+    
 </style>
 </head>
 <body>
@@ -206,21 +222,21 @@ margin: 0 auto;
 <audio id="audio20" src="06-Poussin.mp3"></audio>
 </div>    
 <div class="carousel__slide">
-<img src="07-Lapin.jpg" alt="Image 3" />
+<img src="07-Lapin.jpg" alt="Image 3" class="vertical-image"/>
 <button class="audio-control" onclick="playAudio('audio21')">
 <img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
 </button>
 <audio id="audio21" src="07-Lapin.mp3"></audio>
 </div>    
 <div class="carousel__slide">
-<img src="07-Lapine.jpg" alt="Image 3" />
+<img src="07-Lapine.jpg" alt="Image 3" class="vertical-image"/>
 <button class="audio-control" onclick="playAudio('audio22')">
 <img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
 </button>
 <audio id="audio22" src="07-Lapine.mp3"></audio>
 </div>    
 <div class="carousel__slide">
-<img src="07-Lapereau.jpg" alt="Image 3" />
+<img src="07-Lapereau.jpg" alt="Image 3" class="vertical-image"/>
 <button class="audio-control" onclick="playAudio('audio23')">
 <img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
 </button>
