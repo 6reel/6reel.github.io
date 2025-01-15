@@ -1,114 +1,540 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrousel avec Audio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.css"/>
-    <style>
-        .carousel__slide {
-            position: relative;
-        }
-        .audio-control {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.5);
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .audio-control img {
-            width: 30px; /* Ajustez la taille de l'image ici */
-            height: auto;
-        }
-        .fullscreen-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .fullscreen-btn img {
-            width: 20px; /* Ajustez la taille de l'image ici */
-            height: auto;
-        }
-        .carousel__slide img {
-            width: 100%;
-            height: auto;
-            max-width: 100%;
-            object-fit: cover;
-        }
-        .carousel {
-            width: 100%;
-            max-width: 1200px; /* Ajustez selon vos besoins */
-            margin: 0 auto;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les animaux sauvages</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.css"/>
+<style>
+.carousel__slide {
+position: relative;
+}
+.audio-control {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0,0,0,0.5);
+border: none;
+padding: 10px;
+cursor: pointer;
+}
+.audio-control img {
+width: 30px; /* Ajustez la taille de l'image ici */
+height: auto;
+}
+.fullscreen-btn {
+position: absolute;
+top: 10px;
+right: 10px;
+background: rgba(0, 0, 0, 0.7);
+border: none;
+padding: 10px;
+cursor: pointer;
+}
+.fullscreen-btn img {
+width: 20px; /* Ajustez la taille de l'image ici */
+height: auto;
+}
+.carousel__slide > img {
+  width: 100%;
+  height: 70vh;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.audio-control img {
+  width: 30px;
+  height: auto;
+}
+    
+.carousel {
+width: 100%;
+max-width: 1200px; /* Ajustez selon vos besoins */
+margin: 0 auto;
+}
+    
+.vertical-image {
+  width: auto;
+  height: 70vh;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+    .home-btn {
+    position: absolute;
+    top: 10px;
+    right: 50px; /* Position à droite de l'écran, mais à gauche du bouton fullscreen */
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.home-btn img {
+    width: 20px;
+    height: auto;
+}
+    
+</style>
 </head>
 <body>
-    <div class="container">
-        <button class="fullscreen-btn" onclick="toggleFullScreen()">
-            <img src="fullscreen-icon.png" alt="Plein écran" /> <!-- Remplacez par le chemin de votre image -->
-        </button>
-        <div class="row">
-            <div class="col-12">
-                <div class="carousel">
-                    <div class="carousel__slide">
-                        <img src="image1.jpg" alt="Image 1" />
-                        <button class="audio-control" onclick="playAudio('audio1')">
-                            <img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
-                        </button>
-                        <audio id="audio1" src="audio1.mp3"></audio>
-                    </div>
-                    <div class="carousel__slide">
-                        <img src="image2.jpg" alt="Image 2" />
-                        <button class="audio-control" onclick="playAudio('audio2')">
-                            <img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
-                        </button>
-                        <audio id="audio2" src="audio2.mp3"></audio>
-                    </div>
-                    <div class="carousel__slide">
-                        <img src="image3.jpg" alt="Image 3" />
-                        <button class="audio-control" onclick="playAudio('audio3')">
-                            <img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
-                        </button>
-                        <audio id="audio3" src="audio3.mp3"></audio>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+    <button class="home-btn" onclick="window.location.href='https://6reel.github.io/Lexique/Animaux/index.html'">
+        <img src="home-icon.png" alt="Accueil" /> <!-- Remplacez par le chemin de votre icône home -->
+    </button>
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">
+        <img src="fullscreen-icon.png" alt="Plein écran" />
+    </button>
+    <!-- Le reste de votre code... -->
+<div class="row">
+<div class="col-12">
+<div class="carousel">
+<div class="carousel__slide">
+<img src="00-Sauvages.jpg" alt="Image 1" />
+<button class="audio-control" onclick="playAudio('audio1')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio1" src="00-Sauvages.mp3"></audio>
+</div>
 
-    <!-- Ajoutez Font Awesome pour les icônes -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const myCarousel = new Carousel(document.querySelector(".carousel"), {
-                // Options du carrousel
-            });
-        });
+<div class="carousel__slide">
+<img src="01-Cerf.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio3')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio3" src="01-Cerf.mp3"></audio>
+</div>
+ <div class="carousel__slide">
+<img src="01-Biche.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio4')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio4" src="01-Biche.mp3"></audio>
+</div>   
+<div class="carousel__slide">
+<img src="01-Faon.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio5')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio5" src="01-Faon.mp3"></audio>
+</div>    
+ <div class="carousel__slide">
+<img src="02-Lion.jpg" alt="Image 2" />
+<button class="audio-control" onclick="playAudio('audio2')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio2" src="02-Lion.mp3"></audio>
+</div>   
+    
+    
+    
+    
+    
+    
+<div class="carousel__slide">
+<img src="02-Lionne.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio6')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio6" src="02-Lionne.mp3"></audio>
+</div>
+<div class="carousel__slide">
+<img src="02-Lionceau.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio7')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio7" src="02-Lionceau.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="03-Loup.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio8')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio8" src="03-Loup.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="03-Louve.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio9')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio9" src="03-Louve.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="03-Louveteau.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio10')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio10" src="03-Louveteau.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="04-Ours%20polaire.jpeg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio11')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio11" src="04-Ours%20polaire.mp3"></audio>
+</div>    
+   
+<div class="carousel__slide">
+<img src="04-Ours.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio13')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio13" src="04-Ours.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="04-Ourse.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio14')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio14" src="04-Ourse.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="04-Ourson.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio15')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio15" src="04-Ourson.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="05-Sanglier.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio16')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio16" src="05-Sanglier.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="05-Marcassin.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio17')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio17" src="05-Marcassin.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="06-El%C3%A9phant.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio18')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio18" src="06-El%C3%A9phant.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="06-El%C3%A9phante.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio19')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio19" src="06-El%C3%A9phante.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="06-El%C3%A9phanteau.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio20')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio20" src="06-El%C3%A9phanteau.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="07-L%C3%A9opard.jpg" alt="Image 3" class="vertical-image"/>
+<button class="audio-control" onclick="playAudio('audio21')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio21" src="07-L%C3%A9opard.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="07-Panth%C3%A8re.jpg" alt="Image 3" class="vertical-image"/>
+<button class="audio-control" onclick="playAudio('audio22')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio22" src="07-Panth%C3%A8re.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="08-Babouin.jpg" alt="Image 3" class="vertical-image"/>
+<button class="audio-control" onclick="playAudio('audio23')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio23" src="08-Babouin.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="08-Chimpanz%C3%A9.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio24')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio24" src="08-Chimpanz%C3%A9.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="08-Gorille.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio25')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio25" src="08-Gorille.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="08-Orang-Outan.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio26')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio26" src="08-Orang-outan.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="08-Singe.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio27')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio27" src="08-Singe.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="09-Chameau.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio28')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio28" src="09-Chameau.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="09-Dromadaire.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio29')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio29" src="09-Dromadaire.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="10-Rat.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio30')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio30" src="10-Rat.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="10-Souris.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio31')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio31" src="10-Souris.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="Cam%C3%A9l%C3%A9on.jpeg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio32')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio32" src="Cam%C3%A9l%C3%A9on.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="Chauve-souris.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio33')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio33" src="Chauve-souris.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="Crocodile.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio34')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio34" src="Crocodile.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="Ecureuil.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio35')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio35" src="Ecureuil.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="Furet.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio36')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio36" src="Furet.mp3"></audio>
+</div>    
+<div class="carousel__slide">
+<img src="Gazelle.jpeg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio37')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio37" src="Gazelle.mp3"></audio>
+</div>    
+    
+    
+<div class="carousel__slide">
+<img src="Girafe.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio38')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio38" src="Girafe.mp3"></audio>
+</div>  
 
-        function playAudio(audioId) {
-            const audio = document.getElementById(audioId);
-            audio.play();
-        }
+<div class="carousel__slide">
+<img src="Gnou.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio39')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio39" src="Gnou.mp3"></audio>
+</div>  
+    
+<div class="carousel__slide">
+<img src="Herisson.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio40')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio40" src="H%C3%A9risson.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Hippopotame.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio41')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio41" src="Hippopotame.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Kangourou.JPG" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio42')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio42" src="Kangourou.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Koala.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio43')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio43" src="Koala.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Lama.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio44')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio44" src="Lama.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Lynx.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio45')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio45" src="Lynx.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="L%C3%A9zard.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio46')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio46" src="L%C3%A9zard.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Panda.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio47')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio47" src="Panda.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Phacoch%C3%A8re.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio48')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio48" src="Phacoch%C3%A8re.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Renard.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio49')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio49" src="Renard.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Renne.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio50')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio50" src="Renne.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Rhinoc%C3%A9ros.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio51')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio51" src="Rhinoc%C3%A9ros.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Serpent.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio52')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio52" src="Serpent.mp3"></audio>
+</div>      
 
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
-    </script>
+ <div class="carousel__slide">
+<img src="Suricate.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio53')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio53" src="Suricate.mp3"></audio>
+</div>     
+    
+<div class="carousel__slide">
+<img src="Tigre.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio54')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio54" src="Tigre.mp3"></audio>
+</div>      
+    
+<div class="carousel__slide">
+<img src="Z%C3%A8bre.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio55')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio55" src="Z%C3%A8bre.mp3"></audio>
+</div>      
+
+    
+    
+    
+    
+    
+    
+</div>
+</div>
+</div>
+</div>
+
+<!-- Ajoutez Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const myCarousel = new Carousel(document.querySelector(".carousel"), {
+// Options du carrousel
+});
+});
+
+function playAudio(audioId) {
+const audio = document.getElementById(audioId);
+audio.play();
+}
+
+function toggleFullScreen() {
+if (!document.fullscreenElement) {
+document.documentElement.requestFullscreen();
+} else {
+if (document.exitFullscreen) {
+document.exitFullscreen();
+}
+}
+}
+</script>
 </body>
 </html>
