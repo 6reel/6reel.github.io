@@ -63,14 +63,32 @@ margin: 0 auto;
   object-fit: contain;
 }
 
+    .home-btn {
+    position: absolute;
+    top: 10px;
+    right: 50px; /* Position à droite de l'écran, mais à gauche du bouton fullscreen */
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.home-btn img {
+    width: 20px;
+    height: auto;
+}
     
 </style>
 </head>
 <body>
 <div class="container">
-<button class="fullscreen-btn" onclick="toggleFullScreen()">
-<img src="fullscreen-icon.png" alt="Plein écran" /> <!-- Remplacez par le chemin de votre image -->
-</button>
+    <button class="home-btn" onclick="window.location.href='https://6reel.github.io/Lexique/Animaux/index.html'">
+        <img src="home-icon.png" alt="Accueil" /> <!-- Remplacez par le chemin de votre icône home -->
+    </button>
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">
+        <img src="fullscreen-icon.png" alt="Plein écran" />
+    </button>
+    <!-- Le reste de votre code... -->
 <div class="row">
 <div class="col-12">
 <div class="carousel">
