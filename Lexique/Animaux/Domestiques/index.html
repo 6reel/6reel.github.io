@@ -71,35 +71,35 @@
 <div class="carousel">
 <div class="carousel__slide">
 <img src="00-Domestiques.jpg" alt="Image 1" />
-<button class="audio-control" onclick="playAudio('audio1')">
+<button class="audio-control" onclick="playAudio('audio1')" ontouchstart="playAudio('audio1')">
 <img src="play-icon.png" alt="Play" />
 </button>
 <audio id="audio1" src="00-Domestiques.mp3"></audio>
 </div>
 <div class="carousel__slide">
 <img src="01-Taureau.jpg" alt="Image 3" />
-<button class="audio-control" onclick="playAudio('audio3')">
+<button class="audio-control" onclick="playAudio('audio3')" ontouchstart="playAudio('audio3')">
 <img src="play-icon.png" alt="Play" />
 </button>
 <audio id="audio3" src="01-Taureau.mp3"></audio>
 </div>
 <div class="carousel__slide">
 <img src="01-Vache.jpg" alt="Image 3" />
-<button class="audio-control" onclick="playAudio('audio4')">
+<button class="audio-control" onclick="playAudio('audio4')" ontouchstart="playAudio('audio4')">
 <img src="play-icon.png" alt="Play" />
 </button>
 <audio id="audio4" src="01-Vache.mp3"></audio>
 </div>
 <div class="carousel__slide">
 <img src="01-Veau.jpg" alt="Image 3" />
-<button class="audio-control" onclick="playAudio('audio5')">
+<button class="audio-control" onclick="playAudio('audio5')" ontouchstart="playAudio('audio5')">
 <img src="play-icon.png" alt="Play" />
 </button>
 <audio id="audio5" src="01-Veau.mp3"></audio>
 </div>
 <div class="carousel__slide">
 <img src="01-Boeuf.jpg" alt="Image 2" />
-<button class="audio-control" onclick="playAudio('audio2')">
+<button class="audio-control" onclick="playAudio('audio2')" ontouchstart="playAudio('audio2')">
 <img src="play-icon.png" alt="Play" />
 </button>
 <audio id="audio2" src="01-Boeuf.mp3"></audio>
@@ -341,11 +341,30 @@ document.addEventListener("DOMContentLoaded", function() {
     // Options du carrousel
   });
 });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+  const audioControls = document.querySelectorAll('.audio-control');
+  audioControls.forEach(control => {
+    control.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      const audioId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+      playAudio(audioId);
+    });
+  });
+});
 
 function playAudio(audioId) {
   const audio = document.getElementById(audioId);
-  audio.play();
+  if (audio.paused) {
+    audio.play().catch(error => {
+      console.log('Lecture audio impossible :', error);
+      // Ici, vous pouvez ajouter un message pour l'utilisateur
+    });
+  } else {
+    audio.pause();
+  }
 }
+
 
 function toggleFullScreen() {
   if (!document.fullscreenElement) {
