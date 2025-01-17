@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrousel Images, Vidéos et Audio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.css">
+    <style>
+        .carousel__slide {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .carousel__slide > img,
+        .carousel__slide > video {
+            width: 100%;
+            height: 70vh;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 70vh;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .audio-control {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div class="carousel__viewport">
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="00-Verbes.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio1', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio1" src="00-Verbes.mp3"></audio>
+            </div>
+
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Aboyer.mp4" alt="Vidéo 1" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio2', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio2" src="Aboyer.mp3"></audio>
+            </div>
+            
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Barrir.mp4" alt="Vidéo 2" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio3', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio3" src="Barrir.mp3"></audio>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.umd.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const myCarousel = new Carousel(document.querySelector(".carousel"), {
+                // Options du carrousel
+            });
+
+            // Ajouter des écouteurs d'événements 'ended' pour tous les éléments audio
+            document.querySelectorAll('audio').forEach(audio => {
+                audio.addEventListener('ended', function() {
+                    const buttons = this.parentNode.querySelectorAll('.audio-control');
+                    buttons.forEach(button => {
+                        if (button.textContent === "Pause audio") {
+                            button.textContent = "Lecture audio";
+                        }
+                    });
+                });
+            });
+        });
+
+        function toggleVideoAudio(videoElement, button) {
+            if (videoElement.paused) {
+                videoElement.muted = false;
+                videoElement.play();
+                button.textContent = "Pause vidéo";
+            } else {
+                videoElement.pause();
+                videoElement.muted = true;
+                button.textContent = "Lecture vidéo";
+            }
+        }
+
+        function playAudio(audioId, button) {
+            const audioElement = document.getElementById(audioId);
+            if (audioElement.paused) {
+                audioElement.play();
+                button.textContent = "Pause audio";
+            } else {
+                audioElement.pause();
+                button.textContent = "Lecture audio";
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
