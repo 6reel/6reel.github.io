@@ -19,7 +19,7 @@
             object-fit: contain;
             max-width: 100%;
             max-height: 70vh;
-            pointer-events: none; /* Désactive les événements sur la vidéo */
+            pointer-events: none;
         }
         .button-container {
             display: flex;
@@ -99,14 +99,206 @@
                 <audio id="audio3" src="Barrir.mp3"></audio>
             </div>
             
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Bondir.mp4" alt="Vidéo 3" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio4', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio4" src="Bondir.mp3"></audio>
+            </div>            
             
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Cabrer.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio5', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio5" src="Cabrer.mp3"></audio>
+            </div>            
             
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Chasser.png" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio6', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio6" src="Chasser.mp3"></audio>
+            </div>                
             
+             <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Dompter.JPG" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio7', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio7" src="Dompter.mp3"></audio>
+            </div>                
+                       
+             <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Envoler.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio8', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio8" src="Envoler.mp3"></audio>
+            </div>                
+                       
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Galoper.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio9', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio9" src="Galoper.mp3"></audio>
+            </div>                
+                        
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Griffer.png" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio10', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio10" src="Griffer.mp3"></audio>
+            </div>                
+                        
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Grignoter.mp4" alt="Vidéo 4" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio11', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio11" src="Grignoter.mp3"></audio>
+            </div>  
             
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Japper.mp4" alt="Vidéo 3" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio12', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio12" src="Japper.mp3"></audio>
+            </div>              
             
+              <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="L%C3%A9zarder.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio13', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio13" src="L%C3%A9zarder.mp3"></audio>
+            </div>            
             
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Mordre.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio14', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio14" src="Mordre.mp3"></audio>
+            </div>              
             
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Nager.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio15', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio15" src="Nager.mp3"></audio>
+            </div>              
             
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Ramper.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio16', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio16" src="Ramper.mp3"></audio>
+            </div>              
+            
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Ronronner.mp4" alt="Vidéo 3" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio17', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio17" src="Ronronner.mp3"></audio>
+            </div>              
+            
+            <!-- Diapositive avec image -->
+            <div class="carousel__slide">
+                <img src="Ruer.jpg" alt="Image 1">
+                <div class="button-container">
+                    <button class="audio-control" onclick="playAudio('audio18', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio18" src="Ruer.mp3"></audio>
+            </div>            
+            
+            <!-- Diapositive avec vidéo -->
+            <div class="carousel__slide">
+                <video src="Rugir.mp4" alt="Vidéo 3" loop muted playsinline>
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+                <div class="button-container">
+                    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide').querySelector('video'), this)">
+                        Lecture vidéo
+                    </button>
+                    <button class="audio-control" onclick="playAudio('audio19', this)">
+                        Lecture audio
+                    </button>
+                </div>
+                <audio id="audio19" src="Rugir.mp3"></audio>
+            </div>              
             
             
             
@@ -121,9 +313,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const myCarousel = new Carousel(document.querySelector(".carousel"), {
-                // Options du carrousel
                 Dots: false,
-                infinite: false,
+                infinite: true,  // Modifié pour rendre le carrousel infini
                 dragFree: true
             });
 
@@ -144,8 +335,7 @@
             const fullscreenButton = document.getElementById('fullscreenButton');
 
             homeButton.addEventListener('click', () => {
-                // Code pour retourner à l'accueil
-   window.location.href = 'https://6reel.github.io/Lexique/Animaux/index.html';
+                window.location.href = 'https://6reel.github.io/Lexique/Animaux/index.html';
             });
 
             fullscreenButton.addEventListener('click', toggleFullScreen);
