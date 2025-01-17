@@ -135,17 +135,24 @@
                 </div>
                 <audio id="audio5" src="Cabrer.mp3"></audio>
             </div>            
-            
-            <!-- Diapositive avec image -->
-            <div class="carousel__slide">
-                <img src="Chasser.png" alt="Image 1">
-                <div class="button-container">
-                    <button class="audio-control" onclick="playAudio('audio6', this)">
-                        Lecture audio
-                    </button>
-                </div>
-                <audio id="audio6" src="Chasser.mp3"></audio>
-            </div>                
+
+  <!-- Diapositive avec vidéo -->
+<div class="carousel__slide">
+  <img src="Chasser.png" alt="Thumbnail for Video 1" class="video-thumbnail">
+  <video src="Chasser.mp4" alt="Vidéo 1" loop muted playsinline style="display: none;">
+    Votre navigateur ne supporte pas la balise vidéo.
+  </video>
+  <div class="button-container">
+    <button class="audio-control" onclick="toggleVideoAudio(this.closest('.carousel__slide'))">
+      Lecture vidéo
+    </button>
+    <button class="audio-control" onclick="playAudio('audio6', this)">
+      Lecture audio
+    </button>
+  </div>
+  <audio id="audio6" src="Chasser.mp3"></audio>
+</div>            
+             
             
              <!-- Diapositive avec image -->
             <div class="carousel__slide">
