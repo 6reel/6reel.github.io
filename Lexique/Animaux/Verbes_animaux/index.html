@@ -19,6 +19,7 @@
             object-fit: contain;
             max-width: 100%;
             max-height: 70vh;
+            pointer-events: none; /* Désactive les événements sur la vidéo */
         }
         .button-container {
             display: flex;
@@ -33,12 +34,28 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        #homeButton, #fullscreenButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #homeButton {
+            right: 60px;
+        }
+        #homeButton img, #fullscreenButton img {
+            width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
     <div class="carousel">
         <div class="carousel__viewport">
-            <!-- Diapositive avec image -->
+
+                        <!-- Diapositive avec image -->
             <div class="carousel__slide">
                 <img src="00-Verbes.jpg" alt="Image 1">
                 <div class="button-container">
@@ -64,7 +81,8 @@
                 </div>
                 <audio id="audio2" src="Aboyer.mp3"></audio>
             </div>
-            
+
+
             <!-- Diapositive avec vidéo -->
             <div class="carousel__slide">
                 <video src="Barrir.mp4" alt="Vidéo 2" loop muted playsinline>
@@ -93,44 +111,20 @@
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         </div>
     </div>
+
+    <button id="homeButton"><img src="home-icon.png" alt="Home"></button>
+    <button id="fullscreenButton"><img src="fullscreen-icon.png" alt="Fullscreen"></button>
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.umd.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const myCarousel = new Carousel(document.querySelector(".carousel"), {
                 // Options du carrousel
+                Dots: false,
+                infinite: false,
+                dragFree: true
             });
 
             // Ajouter des écouteurs d'événements 'ended' pour tous les éléments audio
@@ -144,6 +138,17 @@
                     });
                 });
             });
+
+            // Gestion des boutons Home et Fullscreen
+            const homeButton = document.getElementById('homeButton');
+            const fullscreenButton = document.getElementById('fullscreenButton');
+
+            homeButton.addEventListener('click', () => {
+                // Code pour retourner à l'accueil
+   window.location.href = 'https://6reel.github.io/Lexique/Animaux/index.html';
+            });
+
+            fullscreenButton.addEventListener('click', toggleFullScreen);
         });
 
         function toggleVideoAudio(videoElement, button) {
