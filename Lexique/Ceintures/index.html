@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le lexique des ceintures de lecture</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.css"/>
+<style>
+.carousel__slide {
+position: relative;
+}
+.audio-control {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0,0,0,0.5);
+border: none;
+padding: 10px;
+cursor: pointer;
+}
+.audio-control img {
+width: 30px; /* Ajustez la taille de l'image ici */
+height: auto;
+}
+.fullscreen-btn {
+position: absolute;
+top: 10px;
+right: 10px;
+background: rgba(0, 0, 0, 0.7);
+border: none;
+padding: 10px;
+cursor: pointer;
+}
+.fullscreen-btn img {
+width: 20px; /* Ajustez la taille de l'image ici */
+height: auto;
+}
+.carousel__slide > img {
+  width: 100%;
+  height: 70vh;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.audio-control img {
+  width: 30px;
+  height: auto;
+}
+    
+.carousel {
+width: 100%;
+max-width: 1200px; /* Ajustez selon vos besoins */
+margin: 0 auto;
+}
+    
+.vertical-image {
+  width: auto;
+  height: 70vh;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+    .home-btn {
+    position: absolute;
+    top: 10px;
+    right: 50px; /* Position à droite de l'écran, mais à gauche du bouton fullscreen */
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.home-btn img {
+    width: 20px;
+    height: auto;
+}
+    
+</style>
+</head>
+<body>
+<div class="container">
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">
+        <img src="fullscreen-icon.png" alt="Plein écran" />
+    </button>
+    <!-- Le reste de votre code... -->
+<div class="row">
+<div class="col-12">
+<div class="carousel">
+            <!-- Diapositive avec image -->    
+<div class="carousel__slide">
+<img src="00-Ceintures.jpg" alt="Image 1" />
+<button class="audio-control" onclick="playAudio('audio1')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio1" src="00-Lexique_ceinture.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Affol%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio3')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio3" src="Affol%C3%A9.mp3"></audio>
+</div>
+                <!-- Diapositive avec image -->  
+ <div class="carousel__slide">
+<img src="Allo.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio4')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio4" src="Allo.mp3"></audio>
+</div>   
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Allum%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio5')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio5" src="Allum%C3%A9.mp3"></audio>
+</div>    
+                <!-- Diapositive avec image -->  
+ <div class="carousel__slide">
+<img src="Allumette.png" alt="Image 2" />
+<button class="audio-control" onclick="playAudio('audio2')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio2" src="Allumette.mp3"></audio>
+</div>   
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Amis.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio6')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio6" src="Ami.mp3"></audio>
+</div>
+                <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Ananas.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio7')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio7" src="Ananas.mp3"></audio>
+</div>  
+                <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="%C3%82ne.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio8')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio8" src="Ane.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Araign%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio9')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio9" src="Araign%C3%A9e.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="As.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio10')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio10" src="As.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Assis.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio11')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio11" src="Assis.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Baleine.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio12')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio12" src="Baleine.mp3"></audio>
+</div>   
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="B%C3%A9b%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio13')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio13" src="B%C3%A9b%C3%A9.mp3"></audio>
+</div>  
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Biberon.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio14')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio14" src="Biberon.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Bonnet.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio15')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio15" src="Bonnet.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Caf%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio16')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio16" src="Caf%C3%A9.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Cam%C3%A9ra.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio17')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio17" src="Cam%C3%A9ra.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Canap%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio18')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio18" src="Canap%C3%A9.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image --> 
+<div class="carousel__slide">
+<img src="C%C3%A9r%C3%A9ales.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio19')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio19" src="C%C3%A9r%C3%A9ales.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Cerf.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio20')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio20" src="Cerf.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Cerise.png" alt="Image 3" class="vertical-image"/>
+<button class="audio-control" onclick="playAudio('audio21')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio21" src="Cerise.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Chaise.png" alt="Image 3" class="vertical-image"/>
+<button class="audio-control" onclick="playAudio('audio22')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio22" src="Chaise.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Chat.png" alt="Image 3" class="vertical-image"/>
+<button class="audio-control" onclick="playAudio('audio23')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio23" src="Chat.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ch%C3%A2teau.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio24')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio24" src="Chateau.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Chaussure.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio25')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio25" src="Chaussure.mp3"></audio>
+</div>   
+            <!-- Diapositive avec image --> 
+<div class="carousel__slide">
+<img src="Chemin%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio26')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio26" src="Chemin%C3%A9e.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image --> 
+<div class="carousel__slide">
+<img src="Cheval.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio27')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio27" src="Cheval.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ch%C3%A8vre.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio28')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio28" src="Ch%C3%A8vre.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Chiot.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio29')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio29" src="Chiot.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Chorizo.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio30')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio30" src="Chorizo.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Cuill%C3%A8re.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio31')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio31" src="Cuill%C3%A8re.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="D%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio32')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio32" src="D%C3%A9.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Echarpe.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio33')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio33" src="Echarpe.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ecureuil.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio34')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio34" src="Ecureuil.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="El%C3%A8ves.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio35')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio35" src="El%C3%A8ve.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ep%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio36')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio36" src="Ep%C3%A9e.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Etoile.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio37')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio37" src="Etoile.mp3"></audio>
+</div>    
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fa.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio38')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio38" src="Fa.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="F%C3%A2ch%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio39')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio39" src="Fach%C3%A9e.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Farine.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio40')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio40" src="Farine.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="F%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio41')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio41" src="F%C3%A9e.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fen%C3%AAtre.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio42')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio42" src="Fen%C3%AAtre.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Feuille.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio43')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio43" src="Feuille.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fil.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio44')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio44" src="Fil.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fille.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio45')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio45" src="Fille.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Film.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio46')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio46" src="Film.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fl%C3%A8che.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio47')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio47" src="Fl%C3%A8che.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Folie.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio48')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio48" src="Folie.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fraise.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio49')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio49" src="Fraise.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fum%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio50')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio50" src="Fum%C3%A9e.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Fus%C3%A9e.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio51')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio51" src="Fus%C3%A9e.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="F%C3%BBt.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio52')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio52" src="F%C3%BBt.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Girafe.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio53')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio53" src="Girafe.mp3"></audio>
+</div>                                                             
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Grenouille.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio54')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio54" src="Grenouille.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="H%C3%A9risson.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio55')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio55" src="H%C3%A9risson.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Il_chasse.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio56')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio56" src="Il_chasse.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Il_lit.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio57')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio57" src="Il_lit.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Il_sue.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio58')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio58" src="Il_sue.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="%C3%8Ele.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio59')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio59" src="Ile.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Iris.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio60')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio60" src="Iris.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Javelot.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio61')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio61" src="Javelot.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Jolie.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio62')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio62" src="Jolie.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Journal.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio63')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio63" src="Journal.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Judo.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio64')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio64" src="Judo.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Jupe.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio65')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio65" src="Jupe.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Jus.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio66')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio66" src="Jus.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lama.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio67')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio67" src="Lama.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lasso.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio68')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio68" src="Lasso.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lave.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio69')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio69" src="Lave.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="L%C3%A9ch%C3%A9.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio70')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio70" src="L%C3%A9ch%C3%A9.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="L%C3%A9zard.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio71')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio71" src="L%C3%A9zard.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lilas.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio72')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio72" src="Lilas.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lire.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio73')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio73" src="Lire.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lit.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio74')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio74" src="Lit.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Livre.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio75')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio75" src="Livre.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lune.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio76')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio76" src="Lune.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Lys.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio77')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio77" src="Lys.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ma%C3%AFs.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio78')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio78" src="Ma%C3%AFs.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Mal.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio79')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio79" src="Mal.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Mamie.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio80')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio80" src="Mamie.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Mare.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio81')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio81" src="Mare.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="M%C3%A9decin.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio82')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio82" src="M%C3%A9decin.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Melon.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio83')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio83" src="Melon.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Menu.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio84')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio84" src="Menu.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Mime.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio85')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio85" src="Mime.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Momie.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio86')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio86" src="Momie.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Mur.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio87')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio87" src="Mur.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Narine.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio88')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio88" src="Narine.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Navire.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio89')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio89" src="Navire.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Niche.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio90')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio90" src="Niche.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Nid.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio91')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio91" src="Nid.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Olives.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio92')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio92" src="Olive.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Or.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio93')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio93" src="Or.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Os.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio94')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio94" src="Os.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Pelle.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio95')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio95" src="Pelle.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Rame.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio96')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio96" src="Rame.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Rat.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio97')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio97" src="Rat.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="R%C3%A8gle.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio98')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio98" src="R%C3%A8gle.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Renard.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio99')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio99" src="Renard.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Riche.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio100')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio100" src="Riche.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Riz.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio101')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio101" src="Riz.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ruche.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio102')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio102" src="Ruche.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Rue.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio103')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio103" src="Rue.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Salami.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio104')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio104" src="Salami.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Sale.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio105')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio105" src="Sale.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Salut.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio106')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio106" src="Salut.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Salut2.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio107')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio107" src="Salut.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Serpent.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio108')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio108" src="Serpent.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Singe.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio109')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio109" src="Singe.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Sirop.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio110')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio110" src="Sirop.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Sir%C3%A8ne.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio111')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio111" src="Sir%C3%A8ne.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Soleil.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio112')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio112" src="Soleil.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Souris.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio113')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio113" src="Souris.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="T%C3%A9l%C3%A9phone.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio114')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio114" src="T%C3%A9l%C3%A9phone.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Tr%C3%A9sor.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio115')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio115" src="Tr%C3%A9sor.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Vache.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio116')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio116" src="Vache.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Valise.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio117')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio117" src="Valise.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="V%C3%A9lo.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio118')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio118" src="V%C3%A9lo.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Verre.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio119')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio119" src="Verre.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Ville.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio120')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio120" src="Ville.mp3"></audio>
+</div>     
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Vis.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio121')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio121" src="Vis.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Voiture.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio122')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio122" src="Voiture.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Z%C3%A8bre.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio123')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio123" src="Z%C3%A8bre.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Z%C3%A9bu.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio124')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio124" src="Z%C3%A9bu.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Z%C3%A9ro.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio125')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio125" src="Z%C3%A9ro.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Zoo.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio126')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio126" src="Zoo.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Zorro.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio127')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio127" src="Zorro.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->     
+<div class="carousel__slide">
+<img src="Zorro2.png" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio128')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio128" src="Zorro.mp3"></audio>
+</div>
+
+  
+    
+    
+</div>
+</div>
+</div>
+</div>
+
+<!-- Ajoutez Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const myCarousel = new Carousel(document.querySelector(".carousel"), {
+// Options du carrousel
+});
+});
+
+function playAudio(audioId) {
+const audio = document.getElementById(audioId);
+audio.play();
+}
+
+function toggleFullScreen() {
+if (!document.fullscreenElement) {
+document.documentElement.requestFullscreen();
+} else {
+if (document.exitFullscreen) {
+document.exitFullscreen();
+}
+}
+}
+</script>
+</body>
+</html>
