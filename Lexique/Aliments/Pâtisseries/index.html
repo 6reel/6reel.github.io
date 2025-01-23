@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le lexique des aliments</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.css"/>
+<style>
+.carousel__slide {
+position: relative;
+}
+.audio-control {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0,0,0,0.5);
+border: none;
+padding: 10px;
+cursor: pointer;
+}
+.audio-control img {
+width: 30px; /* Ajustez la taille de l'image ici */
+height: auto;
+}
+.fullscreen-btn {
+position: absolute;
+top: 10px;
+right: 10px;
+background: rgba(0, 0, 0, 0.7);
+border: none;
+padding: 10px;
+cursor: pointer;
+}
+.fullscreen-btn img {
+width: 20px; /* Ajustez la taille de l'image ici */
+height: auto;
+}
+.carousel__slide > img {
+  width: 100%;
+  height: 70vh;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.audio-control img {
+  width: 30px;
+  height: auto;
+}
+    
+.carousel {
+width: 100%;
+max-width: 1200px; /* Ajustez selon vos besoins */
+margin: 0 auto;
+}
+    
+.vertical-image {
+  width: auto;
+  height: 70vh;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+    .home-btn {
+    position: absolute;
+    top: 10px;
+    right: 50px; /* Position à droite de l'écran, mais à gauche du bouton fullscreen */
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.home-btn img {
+    width: 20px;
+    height: auto;
+}
+    
+</style>
+</head>
+<body>
+<div class="container">
+            <button class="home-btn" onclick="window.location.href='https://6reel.github.io/Lexique/Aliments/index.html'">
+        <img src="home-icon.png" alt="Accueil" /> <!-- Remplacez par le chemin de votre icône home -->
+    </button>
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">
+        <img src="fullscreen-icon.png" alt="Plein écran" />
+    </button>
+    <!-- Le reste de votre code... -->
+<div class="row">
+<div class="col-12">
+<div class="carousel">
+            <!-- Diapositive avec image -->    
+<div class="carousel__slide">
+<img src="00-P%C3%A2tisseries.jpg" alt="Image 1" />
+<button class="audio-control" onclick="playAudio('audio1')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio1" src="00-Pa%CC%82tisserie.mp3"></audio>
+</div>
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Biscuit.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio3')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio3" src="Biscuits.mp3"></audio>
+</div>
+                <!-- Diapositive avec image -->  
+ <div class="carousel__slide">
+<img src="Croissant.jpeg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio4')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio4" src="Croissant.mp3"></audio>
+</div>   
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Far.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio5')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio5" src="Far.mp3"></audio>
+</div>    
+                <!-- Diapositive avec image -->  
+ <div class="carousel__slide">
+<img src="Gateau.jpg" alt="Image 2" />
+<button class="audio-control" onclick="playAudio('audio2')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio2" src="Ga%CC%82teau.mp3"></audio>
+</div>   
+            <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Pain%20au%20chocolat.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio6')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio6" src="Pain%20au%20chocolat.mp3"></audio>
+</div>
+                <!-- Diapositive avec image -->  
+<div class="carousel__slide">
+<img src="Tarte.jpg" alt="Image 3" />
+<button class="audio-control" onclick="playAudio('audio7')">
+<img src="play-icon.png" alt="Play" /> <!-- Remplacez par le chemin de votre image -->
+</button>
+<audio id="audio7" src="Tarte.mp3"></audio>
+</div>  
+     
+
+
+  
+    
+    
+</div>
+</div>
+</div>
+</div>
+
+<!-- Ajoutez Font Awesome pour les icônes -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/carousel.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const myCarousel = new Carousel(document.querySelector(".carousel"), {
+// Options du carrousel
+});
+});
+
+function playAudio(audioId) {
+const audio = document.getElementById(audioId);
+audio.play();
+}
+
+function toggleFullScreen() {
+if (!document.fullscreenElement) {
+document.documentElement.requestFullscreen();
+} else {
+if (document.exitFullscreen) {
+document.exitFullscreen();
+}
+}
+}
+</script>
+</body>
+</html>
