@@ -1,5 +1,5 @@
 // --- 1. CONFIGURATION ET DONNÉES ---
-const TOTAL_IMAGES = 156; // MIS À JOUR À 156
+const TOTAL_IMAGES = 156; 
 const ALL_ANIMALS = [];
 
 for (let i = 1; i <= TOTAL_IMAGES; i++) {
@@ -68,15 +68,14 @@ function handleSecretSelection(card) {
         
         alert("Carte secrète du Joueur Bleu choisie. Passons l'appareil au Joueur Rouge pour son choix.");
         
+        // Retirer la rotation du pré-menu pour le joueur Rouge (pour qu'il voit la grille normalement, en bas)
+        document.getElementById('pre-game-setup').classList.remove('blue-rotation');
+        
         // Réinitialise la grille pour le joueur Rouge (sans aucun indice visuel)
         setupPreGame(false); 
         
         document.getElementById('setup-title').textContent = 'Joueur ROUGE : Choisissez votre animal secret (1/15)';
         document.getElementById('setup-title').style.color = '#e74c3c';
-        
-        // Retirer la rotation du pré-menu pour le joueur Rouge
-        document.getElementById('pre-game-setup').classList.remove('rotated-board');
-
 
     } else if (setupPhase === 'red') {
         redSelectedCard = src;
@@ -150,12 +149,12 @@ function handleSingleClick(card) {
     modalImg.src = card.dataset.src;
     modal.style.display = "block";
     
-    // Si la carte est dans un plateau tourné (les deux le sont maintenant)
-    if(card.closest('.rotated-board')) {
-        // La carte est tournée à 180° en CSS, on la ramène à 0° dans la modal pour la voir à l'endroit
+    // Si la carte vient du plateau Bleu (tourné)
+    if(card.closest('.blue-rotation')) {
+        // L'image est tournée à 180° dans le jeu, on la remet à 0° dans la modal pour la voir à l'endroit
         modalImg.style.transform = 'translate(-50%, -50%) rotate(0deg)'; 
     } else {
-        // Normalement non atteint si tout est tourné, mais par sécurité
+        // Plateau Rouge (non tourné)
         modalImg.style.transform = 'translate(-50%, -50%) rotate(0deg)'; 
     }
 }
