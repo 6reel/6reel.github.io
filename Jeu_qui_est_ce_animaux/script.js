@@ -32,12 +32,6 @@ function getPlayerCards() {
 
 // --- 3. GESTION DU PRÉ-MENU (SÉLECTION) ---
 
-/**
- * Crée l'élément HTML pour une carte dans le pré-menu.
- * @param {string} imgSrc - Le chemin de l'image.
- * @param {number} index - L'index (0 à 14).
- * @param {boolean} showNumber - Indique si le numéro doit être affiché (oui pour le premier joueur, non pour le deuxième).
- */
 function createSelectionCardElement(imgSrc, index, showNumber = true) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card');
@@ -52,7 +46,6 @@ function createSelectionCardElement(imgSrc, index, showNumber = true) {
 
     cardDiv.addEventListener('click', () => handleSecretSelection(cardDiv));
     
-    // Ajout du numéro de carte (1 à 15) pour faciliter le choix
     if (showNumber) {
         const numberOverlay = document.createElement('div');
         numberOverlay.textContent = index + 1; // 1 à 15
@@ -63,10 +56,6 @@ function createSelectionCardElement(imgSrc, index, showNumber = true) {
     return cardDiv;
 }
 
-/**
- * Gère le clic sur une carte pendant la phase de sélection.
- * @param {HTMLElement} card - La carte cliquée.
- */
 function handleSecretSelection(card) {
     const src = card.dataset.src;
 
@@ -74,7 +63,6 @@ function handleSecretSelection(card) {
         blueSelectedCard = src;
         setupPhase = 'red';
         
-        // --- NOUVEAU : Nettoyage et re-rendu pour le joueur Rouge ---
         alert("Carte secrète du Joueur Bleu choisie. Passons l'appareil au Joueur Rouge pour son choix.");
         
         // Réinitialise la grille pour le joueur Rouge (sans aucun indice visuel)
@@ -96,20 +84,15 @@ function handleSecretSelection(card) {
     }
 }
 
-/**
- * Configure le pré-menu de sélection.
- * @param {boolean} isInitialSetup - Vrai si c'est le début du jeu (joueur Bleu).
- */
 function setupPreGame(isInitialSetup = true) {
     if (isInitialSetup) {
-        cardList = getPlayerCards(); // Sélectionne les 15 cartes une seule fois au début
+        cardList = getPlayerCards(); 
     }
     
     const selectionGrid = document.getElementById('selection-grid');
     selectionGrid.innerHTML = '';
 
     cardList.forEach((imgSrc, index) => {
-        // Affiche les numéros seulement pour le joueur Bleu (isInitialSetup)
         selectionGrid.appendChild(createSelectionCardElement(imgSrc, index, isInitialSetup));
     });
 }
@@ -162,9 +145,11 @@ function handleSingleClick(card) {
     
     // Ajuste la rotation de l'image agrandie si elle vient du plateau rouge
     if(card.closest('.rotated-board')) {
-        modalImg.style.transform = 'translate(-50%, -50%) rotate(180deg)';
+        // La carte rouge est tournée à 180° en CSS, on la ramène à 0° dans la modal pour la voir à l'endroit
+        modalImg.style.transform = 'translate(-50%, -50%) rotate(0deg)'; 
     } else {
-        modalImg.style.transform = 'translate(-50%, -50%)';
+        // La carte bleue est normale
+        modalImg.style.transform = 'translate(-50%, -50%) rotate(0deg)'; 
     }
 }
 
@@ -228,6 +213,7 @@ document.getElementById('reveal-btn').addEventListener('click', () => {
     document.getElementById('reveal-blue-img').src = blueSelectedCard;
     document.getElementById('reveal-red-img').src = redSelectedCard;
     
+    // Affiche la modal (display: flex est défini dans le CSS pour #reveal-modal)
     document.getElementById('reveal-modal').style.display = 'flex';
 });
 
