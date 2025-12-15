@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qui Est-ce ?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="pre-game-setup">
+        <h1 id="setup-title">Joueur BLEU : Choisissez votre animal secret (1/15)</h1>
+        <div id="selection-grid" class="card-grid">
+            </div>
+    </section>
+
+    <main id="main-game" class="game-container" style="display: none;">
+        
+        <section id="board-blue" class="player-board blue-active">
+            <h2 class="board-title">Plateau Bleu</h2>
+            <div class="card-grid">
+                </div>
+        </section>
+
+        <div id="control-panel">
+            <button id="next-turn-btn" class="blue-turn" title="Passer le tour">
+                ⇌
+            </button>
+            
+            <button id="reveal-btn" title="Révéler les cartes secrètes">
+                👁️
+            </button>
+        </div>
+
+        <section id="board-red" class="player-board rotated-board">
+            <h2 class="board-title">Plateau Rouge</h2>
+            <div class="card-grid">
+                </div>
+        </section>
+    </main>
+
+    <div id="image-modal" class="modal">
+        <img id="modal-image" class="modal-content" src="">
+    </div>
+
+    <div id="reveal-modal" class="modal">
+        <div class="reveal-content">
+            <h3>Cartes Secrètes Révélées</h3>
+            <div class="secret-reveal-cards-container">
+                <div class="secret-reveal-card blue-card">
+                    <h4>Joueur Bleu</h4>
+                    <img id="reveal-blue-img" src="" alt="Carte Secrète Bleue">
+                </div>
+                <div class="secret-reveal-card red-card">
+                    <h4>Joueur Rouge</h4>
+                    <img id="reveal-red-img" src="" alt="Carte Secrète Rouge">
+                </div>
+            </div>
+            <button id="close-reveal-modal">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
