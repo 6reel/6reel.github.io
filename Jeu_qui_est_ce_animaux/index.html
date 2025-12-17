@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Qui Est-ce ?</title>
+    <title>Qui Est-ce ? - Édition Animaux</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <section id="pre-game-setup" class="blue-rotation">
         <h1 id="setup-title">Joueur BLEU : Choisissez votre animal</h1>
         <div id="selection-grid" class="card-grid"></div>
     </section>
 
     <main id="main-game" class="game-container" style="display: none;">
+        
         <section id="board-blue" class="player-board blue-rotation">
             <h2 class="board-title">Plateau Bleu</h2>
             <div class="card-grid"></div>
         </section>
+
         <div id="control-panel">
-            <button id="next-turn-btn">⇌</button>
-            <button id="reveal-btn">👁️</button>
+            <button id="next-turn-btn" title="Changer de tour">⇌</button>
+            <button id="reveal-btn" title="Révéler les secrets">👁️</button>
         </div>
+
         <section id="board-red" class="player-board">
             <h2 class="board-title">Plateau Rouge</h2>
             <div class="card-grid"></div>
         </section>
+        
     </main>
 
-    <div id="image-modal" class="modal"><img id="modal-image" style="max-width:90%; max-height:90%;"></div>
+    <div id="image-modal" class="modal">
+        <img id="modal-image" src="" alt="Agrandissement">
+    </div>
+
     <div id="reveal-modal" class="modal">
         <div class="reveal-content">
-            <div style="display:flex; gap:20px;">
-                <div><h4>Bleu</h4><img id="reveal-blue-img" class="secret-reveal-card img"></div>
-                <div><h4>Rouge</h4><img id="reveal-red-img" class="secret-reveal-card img"></div>
+            <h3>Cartes Secrètes</h3>
+            <div class="reveal-flex">
+                <div class="reveal-slot">
+                    <p>Bleu</p>
+                    <img id="reveal-blue-img" src="" alt="Secret Bleu">
+                </div>
+                <div class="reveal-slot">
+                    <p>Rouge</p>
+                    <img id="reveal-red-img" src="" alt="Secret Rouge">
+                </div>
             </div>
-            <button style="margin-top:20px; padding:10px;">Fermer</button>
+            <button class="close-btn">Fermer</button>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

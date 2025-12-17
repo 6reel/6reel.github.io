@@ -1,29 +1,31 @@
+// 1. Initialisation des données
 const TOTAL_IMAGES = 156;
-const ALL_ANIMALS = [];
+const ALL_IMAGES = [];
 for (let i = 1; i <= TOTAL_IMAGES; i++) {
-    const padded = i.toString().padStart(3, '0');
-    ALL_ANIMALS.push(`images/animal_${padded}.jpg`);
+    const num = i.toString().padStart(3, '0');
+    ALL_IMAGES.push(`images/animal_${num}.jpg`);
 }
 
-const CARDS_PER_PLAYER = 15;
-// La liste est générée UNE SEULE FOIS ici au lancement
-let cardList = [...ALL_ANIMALS].sort(() => 0.5 - Math.random()).slice(0, CARDS_PER_PLAYER);
+// On tire les 15 images UNE SEULE FOIS pour toute la partie
+const cardList = [...ALL_IMAGES].sort(() => 0.5 - Math.random()).slice(0, 15);
 
-let blueSecret = null, redSecret = null;
+let blueSecret = null;
+let redSecret = null;
 let isBlueTurn = true;
 let setupPhase = 'blue';
 
+// 2. Fonctions de démarrage
 function setupPreGame() {
     const grid = document.getElementById('selection-grid');
+    if (!grid) return;
     grid.innerHTML = '';
-    
-    // On utilise TOUJOURS la même cardList pour les deux joueurs
+
     cardList.forEach(src => {
         const div = document.createElement('div');
         div.className = 'card';
         const img = document.createElement('img');
         img.src = src;
-        div.appendChild(img);
+        img.onerror = () => img.src = "https://via.placeholder.com/150?text=Erreur";
         
         div.onclick = () => {
             if (setupPhase === 'blue') {
@@ -31,21 +33,23 @@ function setupPreGame() {
                 setupPhase = 'red';
                 document.getElementById('pre-game-setup').classList.remove('blue-rotation');
                 document.getElementById('setup-title').textContent = "JOUEUR ROUGE : Choisissez votre animal";
-                alert("Bleu a choisi. Passez l'iPad au joueur Rouge. Les images restent les mêmes !");
-                // On rafraîchit l'affichage sans régénérer la liste
-                setupPreGame(); 
-            } else {
+                alert("Bleu a choisi ! Au tour de Rouge.");
+                setupPreGame(); // On rafraîchit pour le rouge
+            } else if (setupPhase === 'red') {
                 redSecret = src;
+                setupPhase = 'done';
                 document.getElementById('pre-game-setup').style.display = 'none';
                 document.getElementById('main-game').style.display = 'flex';
-                renderGame();
+                initBoards();
             }
         };
+        div.appendChild(img);
         grid.appendChild(div);
     });
 }
 
-function renderGame() {
+// 3. Création des plateaux
+function initBoards() {
     ['board-blue', 'board-red'].forEach(id => {
         const grid = document.querySelector(`#${id} .card-grid`);
         grid.innerHTML = '';
@@ -54,8 +58,8 @@ function renderGame() {
             div.className = 'card';
             const img = document.createElement('img');
             img.src = src;
-            div.appendChild(img);
             
+            // Logique de clic
             let timer;
             div.onclick = () => {
                 clearTimeout(timer);
@@ -64,21 +68,28 @@ function renderGame() {
                     document.getElementById('image-modal').style.display = 'flex';
                 }, 200);
             };
-            div.ondblclick = () => {
+            div.ondblclick = (e) => {
+                e.preventDefault();
                 clearTimeout(timer);
                 div.classList.toggle('removed');
             };
+            
+            div.appendChild(img);
             grid.appendChild(div);
         });
     });
     updateTurnUI();
 }
 
+// 4. Gestion de l'interface
 function updateTurnUI() {
+    const boardBlue = document.getElementById('board-blue');
+    const boardRed = document.getElementById('board-red');
     const btn = document.getElementById('next-turn-btn');
-    btn.className = isBlueTurn ? 'blue-turn' : 'red-turn';
-    document.getElementById('board-blue').classList.toggle('blue-active', isBlueTurn);
-    document.getElementById('board-red').classList.toggle('red-active', !isBlueTurn);
+
+    boardBlue.classList.toggle('blue-active', isBlueTurn);
+    boardRed.classList.toggle('red-active', !isBlueTurn);
+    btn.className = isBlueTurn ? '' : 'red-turn';
 }
 
 document.getElementById('next-turn-btn').onclick = () => {
@@ -92,8 +103,12 @@ document.getElementById('reveal-btn').onclick = () => {
     document.getElementById('reveal-modal').style.display = 'flex';
 };
 
-document.querySelectorAll('.modal').forEach(m => {
-    m.onclick = () => m.style.display = 'none';
-});
+// 5. Fermeture des modals
+window.onclick = (e) => {
+    if (e.target.classList.contains('modal') || e.target.classList.contains('close-btn')) {
+        document.getElementById('image-modal').style.display = 'none';
+        document.getElementById('reveal-modal').style.display = 'none';
+    }
+};
 
 window.onload = setupPreGame;
