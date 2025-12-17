@@ -2,58 +2,50 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Qui Est-ce ?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <section id="pre-game-setup" class="blue-rotation">
-        <h1 id="setup-title">Joueur BLEU : Choisissez votre animal secret (1/15)</h1>
-        <div id="selection-grid" class="card-grid">
-            </div>
+        <h1 id="setup-title">Joueur BLEU : Choisissez votre animal</h1>
+        <div id="selection-grid" class="card-grid"></div>
     </section>
 
     <main id="main-game" class="game-container" style="display: none;">
         
         <section id="board-blue" class="player-board blue-active blue-rotation">
             <h2 class="board-title">Plateau Bleu</h2>
-            <div class="card-grid">
-                </div>
+            <div class="card-grid"></div>
         </section>
 
         <div id="control-panel">
-            <button id="next-turn-btn" class="blue-turn" title="Passer le tour">
-                ⇌
-            </button>
-            
-            <button id="reveal-btn" title="Révéler les cartes secrètes">
-                👁️
-            </button>
+            <button id="next-turn-btn" class="blue-turn">⇌</button>
+            <button id="reveal-btn">👁️</button>
         </div>
 
         <section id="board-red" class="player-board">
             <h2 class="board-title">Plateau Rouge</h2>
-            <div class="card-grid">
-                </div>
+            <div class="card-grid"></div>
         </section>
     </main>
 
     <div id="image-modal" class="modal">
-        <img id="modal-image" class="modal-content" src="">
+        <img id="modal-image" class="modal-content">
     </div>
 
     <div id="reveal-modal" class="modal">
         <div class="reveal-content">
-            <h3>Cartes Secrètes Révélées</h3>
+            <h3>Cartes Secrètes</h3>
             <div class="secret-reveal-cards-container">
                 <div class="secret-reveal-card blue-card">
-                    <h4>Joueur Bleu</h4>
-                    <img id="reveal-blue-img" src="" alt="Carte Secrète Bleue">
+                    <h4>Bleu</h4>
+                    <img id="reveal-blue-img" src="">
                 </div>
                 <div class="secret-reveal-card red-card">
-                    <h4>Joueur Rouge</h4>
-                    <img id="reveal-red-img" src="" alt="Carte Secrète Rouge">
+                    <h4>Rouge</h4>
+                    <img id="reveal-red-img" src="">
                 </div>
             </div>
             <button id="close-reveal-modal">Fermer</button>
