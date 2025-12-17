@@ -2,82 +2,63 @@ body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%; /* Permet à la page de grandir */
     background-color: #f0f0f0;
     font-family: sans-serif;
-    overflow: hidden; /* Empêche le défilement fou sur tablette */
+    overflow-x: hidden;
+    overflow-y: auto; /* CORRECTION : Réactive le défilement vertical */
 }
 
 .game-container {
     display: flex;
-    flex-direction: column; /* Force l'un sur l'autre */
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh; /* S'adapte au contenu */
     width: 100vw;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 20px;
+    padding: 20px 0;
 }
 
 .player-board {
     width: 90%;
-    max-height: 42%; /* Pour laisser de la place au centre */
+    max-width: 600px;
     background: white;
     border-radius: 15px;
     transition: all 0.4s ease;
     border: 4px solid transparent;
-}
-
-/* --- ETAT GRISE (Désactivé) --- */
-.player-board {
-    opacity: 0.3; /* Très grisé par défaut */
+    opacity: 0.3;
     filter: grayscale(100%);
-    pointer-events: none; /* Impossible de cliquer si c'est pas son tour */
+    pointer-events: none;
 }
 
-/* --- ETAT ACTIF --- */
-.blue-active#board-blue {
+.blue-active#board-blue, .red-active#board-red {
     opacity: 1;
     filter: grayscale(0%);
-    border-color: #3498db;
     pointer-events: auto;
 }
 
-.red-active#board-red {
-    opacity: 1;
-    filter: grayscale(0%);
-    border-color: #e74c3c;
-    pointer-events: auto;
-}
+.blue-active#board-blue { border-color: #3498db; }
+.red-active#board-red { border-color: #e74c3c; }
 
-/* --- ROTATION DU PLATEAU BLEU --- */
-.blue-rotation {
-    transform: rotate(180deg);
-}
-
-/* On remet le texte et les cartes du bleu à l'endroit pour celui qui le regarde */
-.blue-rotation .board-title, 
-.blue-rotation .card {
-    transform: rotate(180deg);
-}
-
-.board-title {
-    margin: 5px 0;
-    font-size: 1.2rem;
-    text-align: center;
-}
+/* --- ROTATION --- */
+.blue-rotation { transform: rotate(180deg); }
+.blue-rotation .board-title, .blue-rotation .card { transform: rotate(180deg); }
 
 /* --- GRILLE --- */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 colonnes pour mieux tenir sur iPad */
-    gap: 5px;
-    padding: 5px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 10px;
 }
 
 .card {
     aspect-ratio: 1/1;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
     background: #ccc;
+    cursor: pointer;
 }
 
 .card img {
@@ -93,54 +74,64 @@ body, html {
 /* --- BOUTONS --- */
 #control-panel {
     display: flex;
-    gap: 30px;
-    padding: 10px;
+    gap: 20px;
 }
 
 #next-turn-btn, #reveal-btn {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: none;
-    font-size: 30px;
+    font-size: 25px;
     color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 #next-turn-btn.blue-turn { background: #3498db; }
 #next-turn-btn.red-turn { background: #e74c3c; }
 #reveal-btn { background: #2c3e50; }
 
-/* --- MODAL REVELATION (Correction taille) --- */
+/* --- MODAL AGRANDISSEMENT (CORRECTION TAILLE IMAGE) --- */
 .modal {
     display: none;
     position: fixed;
-    top:0; left:0; width:100%; height:100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.9);
     z-index: 2000;
     justify-content: center;
     align-items: center;
 }
 
+.modal-content {
+    /* CORRECTION : L'image ne dépassera jamais de l'écran */
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+/* --- MODAL REVELATION --- */
 .reveal-content {
     background: white;
     padding: 20px;
     border-radius: 20px;
-    width: 80%;
-    max-width: 500px;
     text-align: center;
+    max-width: 90%;
 }
 
 .secret-reveal-cards-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
     margin: 20px 0;
 }
 
 .secret-reveal-card img {
-    width: 140px; /* Taille limitée pour iPad */
-    height: 140px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 10px;
-    border: 4px solid #333;
 }

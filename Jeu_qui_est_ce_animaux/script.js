@@ -27,8 +27,8 @@ function setupPreGame() {
                 setupPhase = 'red';
                 document.getElementById('pre-game-setup').classList.remove('blue-rotation');
                 document.getElementById('setup-title').textContent = "JOUEUR ROUGE : Choisissez votre animal";
-                alert("Bleu a choisi. Passez l'iPad au joueur Rouge.");
-                setupPreGame(); // Recharge pour que rouge choisisse parmi les mêmes
+                alert("Bleu a choisi. Au tour de Rouge.");
+                setupPreGame(); 
             } else {
                 redSecret = src;
                 document.getElementById('pre-game-setup').style.display = 'none';
