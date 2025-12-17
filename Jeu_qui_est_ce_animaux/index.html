@@ -13,40 +13,28 @@
     </section>
 
     <main id="main-game" class="game-container" style="display: none;">
-        <section id="board-blue" class="player-board blue-active blue-rotation">
+        <section id="board-blue" class="player-board blue-rotation">
             <h2 class="board-title">Plateau Bleu</h2>
             <div class="card-grid"></div>
         </section>
-
         <div id="control-panel">
-            <button id="next-turn-btn" class="blue-turn">⇌</button>
+            <button id="next-turn-btn">⇌</button>
             <button id="reveal-btn">👁️</button>
         </div>
-
         <section id="board-red" class="player-board">
             <h2 class="board-title">Plateau Rouge</h2>
             <div class="card-grid"></div>
         </section>
     </main>
 
-    <div id="image-modal" class="modal">
-        <img id="modal-image" class="modal-content">
-    </div>
-
+    <div id="image-modal" class="modal"><img id="modal-image" style="max-width:90%; max-height:90%;"></div>
     <div id="reveal-modal" class="modal">
         <div class="reveal-content">
-            <h3>Cartes Secrètes</h3>
-            <div class="secret-reveal-cards-container">
-                <div class="secret-reveal-card blue-card">
-                    <h4>Bleu</h4>
-                    <img id="reveal-blue-img" src="">
-                </div>
-                <div class="secret-reveal-card red-card">
-                    <h4>Rouge</h4>
-                    <img id="reveal-red-img" src="">
-                </div>
+            <div style="display:flex; gap:20px;">
+                <div><h4>Bleu</h4><img id="reveal-blue-img" class="secret-reveal-card img"></div>
+                <div><h4>Rouge</h4><img id="reveal-red-img" class="secret-reveal-card img"></div>
             </div>
-            <button id="close-reveal-modal">Fermer</button>
+            <button style="margin-top:20px; padding:10px;">Fermer</button>
         </div>
     </div>
     <script src="script.js"></script>

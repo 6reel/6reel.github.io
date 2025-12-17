@@ -6,17 +6,18 @@ for (let i = 1; i <= TOTAL_IMAGES; i++) {
 }
 
 const CARDS_PER_PLAYER = 15;
-let cardList = [];
+// La liste est générée UNE SEULE FOIS ici au lancement
+let cardList = [...ALL_ANIMALS].sort(() => 0.5 - Math.random()).slice(0, CARDS_PER_PLAYER);
+
 let blueSecret = null, redSecret = null;
 let isBlueTurn = true;
 let setupPhase = 'blue';
 
 function setupPreGame() {
-    // Mélange et sélection des 15 images
-    cardList = [...ALL_ANIMALS].sort(() => 0.5 - Math.random()).slice(0, CARDS_PER_PLAYER);
     const grid = document.getElementById('selection-grid');
     grid.innerHTML = '';
     
+    // On utilise TOUJOURS la même cardList pour les deux joueurs
     cardList.forEach(src => {
         const div = document.createElement('div');
         div.className = 'card';
@@ -28,10 +29,11 @@ function setupPreGame() {
             if (setupPhase === 'blue') {
                 blueSecret = src;
                 setupPhase = 'red';
-                // On enlève la rotation pour que le joueur Rouge choisisse à l'endroit
                 document.getElementById('pre-game-setup').classList.remove('blue-rotation');
                 document.getElementById('setup-title').textContent = "JOUEUR ROUGE : Choisissez votre animal";
-                alert("Bleu a choisi. Au tour de Rouge !");
+                alert("Bleu a choisi. Passez l'iPad au joueur Rouge. Les images restent les mêmes !");
+                // On rafraîchit l'affichage sans régénérer la liste
+                setupPreGame(); 
             } else {
                 redSecret = src;
                 document.getElementById('pre-game-setup').style.display = 'none';
@@ -44,8 +46,7 @@ function setupPreGame() {
 }
 
 function renderGame() {
-    const boards = ['board-blue', 'board-red'];
-    boards.forEach(id => {
+    ['board-blue', 'board-red'].forEach(id => {
         const grid = document.querySelector(`#${id} .card-grid`);
         grid.innerHTML = '';
         cardList.forEach(src => {
@@ -55,14 +56,12 @@ function renderGame() {
             img.src = src;
             div.appendChild(img);
             
-            // Interaction tactile optimisée
             let timer;
             div.onclick = () => {
                 clearTimeout(timer);
                 timer = setTimeout(() => {
-                    const modal = document.getElementById('image-modal');
                     document.getElementById('modal-image').src = src;
-                    modal.style.display = 'flex';
+                    document.getElementById('image-modal').style.display = 'flex';
                 }, 200);
             };
             div.ondblclick = () => {
@@ -78,18 +77,8 @@ function renderGame() {
 function updateTurnUI() {
     const btn = document.getElementById('next-turn-btn');
     btn.className = isBlueTurn ? 'blue-turn' : 'red-turn';
-    
-    // Application des classes pour l'effet grisé
-    const boardBlue = document.getElementById('board-blue');
-    const boardRed = document.getElementById('board-red');
-    
-    if (isBlueTurn) {
-        boardBlue.classList.add('blue-active');
-        boardRed.classList.remove('red-active');
-    } else {
-        boardBlue.classList.remove('blue-active');
-        boardRed.classList.add('red-active');
-    }
+    document.getElementById('board-blue').classList.toggle('blue-active', isBlueTurn);
+    document.getElementById('board-red').classList.toggle('red-active', !isBlueTurn);
 }
 
 document.getElementById('next-turn-btn').onclick = () => {
@@ -103,7 +92,6 @@ document.getElementById('reveal-btn').onclick = () => {
     document.getElementById('reveal-modal').style.display = 'flex';
 };
 
-// Fermeture des modals au clic
 document.querySelectorAll('.modal').forEach(m => {
     m.onclick = () => m.style.display = 'none';
 });

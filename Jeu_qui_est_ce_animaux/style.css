@@ -1,102 +1,56 @@
-/* --- Mise en page globale --- */
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
     background-color: #f0f0f0;
     font-family: sans-serif;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .game-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; flex-direction: column;
+    height: 100vh; width: 100vw;
+    justify-content: space-between; align-items: center;
 }
 
-/* --- Le secret du Face à Face --- */
+/* Rotation tête-bêche pour le joueur du haut */
 .blue-rotation {
-    /* On tourne TOUT le bloc de 180 degrés */
     transform: rotate(180deg);
     transform-origin: center center;
 }
 
-/* On ne redresse PLUS les titres ou les cartes à l'intérieur, 
-   ainsi tout est orienté vers le joueur du haut */
-
 .player-board {
-    width: 95%;
-    max-height: 44%; 
-    background: white;
-    border-radius: 15px;
+    width: 95%; max-height: 44%;
+    background: white; border-radius: 15px;
     transition: opacity 0.4s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    opacity: 0.2; filter: grayscale(100%); pointer-events: none;
 }
 
-/* --- Gestion du tour (Grisé) --- */
-.player-board {
-    opacity: 0.2; /* Très grisé */
-    filter: grayscale(100%);
-    pointer-events: none;
+.blue-active#board-blue, .red-active#board-red {
+    opacity: 1; filter: grayscale(0%); pointer-events: auto;
 }
 
-.blue-active#board-blue,
-.red-active#board-red {
-    opacity: 1;
-    filter: grayscale(0%);
-    pointer-events: auto;
-}
-
-/* --- Grille et Cartes --- */
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 8px;
-    padding: 10px;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 8px; padding: 10px;
 }
 
-.card {
-    aspect-ratio: 1/1;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #eee;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
+.card { aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; background: #eee; }
+.card img { width: 100%; height: 100%; object-fit: cover; }
+.card.removed img { filter: grayscale(100%) brightness(30%); }
 
-.card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.card.removed img {
-    filter: grayscale(100%) brightness(30%);
-}
-
-/* --- Boutons Centraux --- */
-#control-panel {
-    display: flex;
-    gap: 40px;
-}
-
+#control-panel { display: flex; gap: 40px; align-items: center; }
 #next-turn-btn, #reveal-btn {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    border: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
+    width: 65px; height: 65px; border-radius: 50%; border: none;
+    font-size: 28px; color: white; cursor: pointer;
 }
-
 #next-turn-btn.blue-turn { background: #3498db; }
 #next-turn-btn.red-turn { background: #e74c3c; }
 #reveal-btn { background: #2c3e50; }
 
-.board-title {
-    text-align: center;
-    margin: 10px 0;
+.modal {
+    display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;
 }
+.reveal-content { background: white; padding: 20px; border-radius: 20px; text-align: center; }
+.secret-reveal-card img { width: 140px; height: 140px; object-fit: cover; border-radius: 10px; }
