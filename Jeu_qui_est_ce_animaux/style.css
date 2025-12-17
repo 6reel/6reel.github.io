@@ -1,23 +1,83 @@
-body {
-    font-family: sans-serif;
+body, html {
     margin: 0;
-    background-color: #f4f4f9;
-    overflow-x: hidden;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+    overflow: hidden; /* Empêche le défilement fou sur tablette */
 }
 
-/* --- Grille de cartes --- */
+.game-container {
+    display: flex;
+    flex-direction: column; /* Force l'un sur l'autre */
+    height: 100vh;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-board {
+    width: 90%;
+    max-height: 42%; /* Pour laisser de la place au centre */
+    background: white;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    border: 4px solid transparent;
+}
+
+/* --- ETAT GRISE (Désactivé) --- */
+.player-board {
+    opacity: 0.3; /* Très grisé par défaut */
+    filter: grayscale(100%);
+    pointer-events: none; /* Impossible de cliquer si c'est pas son tour */
+}
+
+/* --- ETAT ACTIF --- */
+.blue-active#board-blue {
+    opacity: 1;
+    filter: grayscale(0%);
+    border-color: #3498db;
+    pointer-events: auto;
+}
+
+.red-active#board-red {
+    opacity: 1;
+    filter: grayscale(0%);
+    border-color: #e74c3c;
+    pointer-events: auto;
+}
+
+/* --- ROTATION DU PLATEAU BLEU --- */
+.blue-rotation {
+    transform: rotate(180deg);
+}
+
+/* On remet le texte et les cartes du bleu à l'endroit pour celui qui le regarde */
+.blue-rotation .board-title, 
+.blue-rotation .card {
+    transform: rotate(180deg);
+}
+
+.board-title {
+    margin: 5px 0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* --- GRILLE --- */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 8px;
-    padding: 10px;
+    grid-template-columns: repeat(5, 1fr); /* 5 colonnes pour mieux tenir sur iPad */
+    gap: 5px;
+    padding: 5px;
 }
 
 .card {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
     overflow: hidden;
-    border-radius: 8px;
-    background: #ddd;
+    background: #ccc;
 }
 
 .card img {
@@ -26,62 +86,38 @@ body {
     object-fit: cover;
 }
 
-/* --- Rotation du Plateau Bleu --- */
-.blue-rotation {
-    transform: rotate(180deg);
+.card.removed img {
+    filter: grayscale(100%) brightness(30%);
 }
 
-/* On s'assure que le titre ET les cartes sont lisibles pour le joueur d'en face */
-.blue-rotation .board-title,
-.blue-rotation .card {
-    transform: rotate(0deg); /* Supprime la double rotation inutile */
-}
-
-/* --- Container Principal --- */
-.game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    justify-content: space-around;
-}
-
-.player-board {
-    width: 95%;
-    max-width: 500px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* --- Boutons Centraux --- */
+/* --- BOUTONS --- */
 #control-panel {
     display: flex;
-    gap: 20px;
-    z-index: 10;
+    gap: 30px;
+    padding: 10px;
 }
 
 #next-turn-btn, #reveal-btn {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: none;
-    font-size: 24px;
+    font-size: 30px;
     color: white;
-    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 #next-turn-btn.blue-turn { background: #3498db; }
 #next-turn-btn.red-turn { background: #e74c3c; }
 #reveal-btn { background: #2c3e50; }
 
-/* --- Modals --- */
+/* --- MODAL REVELATION (Correction taille) --- */
 .modal {
     display: none;
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    z-index: 1000;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
     justify-content: center;
     align-items: center;
 }
@@ -89,38 +125,22 @@ body {
 .reveal-content {
     background: white;
     padding: 20px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 500px;
     text-align: center;
 }
 
-/* CORRECTION TAILLE IMAGES RÉVÉLÉES */
 .secret-reveal-cards-container {
     display: flex;
     justify-content: space-around;
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .secret-reveal-card img {
-    width: 120px; /* Taille fixe pour l'iPad */
-    height: 120px;
+    width: 140px; /* Taille limitée pour iPad */
+    height: 140px;
     object-fit: cover;
-    border-radius: 8px;
-    border: 3px solid #ddd;
-}
-
-.blue-card { color: #3498db; }
-.red-card { color: #e74c3c; }
-
-#close-reveal-modal {
-    background: #2ecc71;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-}
-
-.card.removed img {
-    filter: grayscale(100%) brightness(40%);
+    border-radius: 10px;
+    border: 4px solid #333;
 }
