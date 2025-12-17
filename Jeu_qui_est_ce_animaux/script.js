@@ -1,4 +1,4 @@
-// 1. Initialisation des données
+// 1. Initialisation unique
 const TOTAL_IMAGES = 156;
 const ALL_IMAGES = [];
 for (let i = 1; i <= TOTAL_IMAGES; i++) {
@@ -6,7 +6,7 @@ for (let i = 1; i <= TOTAL_IMAGES; i++) {
     ALL_IMAGES.push(`images/animal_${num}.jpg`);
 }
 
-// On tire les 15 images UNE SEULE FOIS pour toute la partie
+// Les 15 mêmes images pour tout le monde
 const cardList = [...ALL_IMAGES].sort(() => 0.5 - Math.random()).slice(0, 15);
 
 let blueSecret = null;
@@ -14,7 +14,7 @@ let redSecret = null;
 let isBlueTurn = true;
 let setupPhase = 'blue';
 
-// 2. Fonctions de démarrage
+// 2. Pré-menu (Sélection)
 function setupPreGame() {
     const grid = document.getElementById('selection-grid');
     if (!grid) return;
@@ -33,8 +33,8 @@ function setupPreGame() {
                 setupPhase = 'red';
                 document.getElementById('pre-game-setup').classList.remove('blue-rotation');
                 document.getElementById('setup-title').textContent = "JOUEUR ROUGE : Choisissez votre animal";
-                alert("Bleu a choisi ! Au tour de Rouge.");
-                setupPreGame(); // On rafraîchit pour le rouge
+                alert("Bleu a choisi. Au tour de Rouge !");
+                setupPreGame(); 
             } else if (setupPhase === 'red') {
                 redSecret = src;
                 setupPhase = 'done';
@@ -48,7 +48,7 @@ function setupPreGame() {
     });
 }
 
-// 3. Création des plateaux
+// 3. Plateaux de jeu
 function initBoards() {
     ['board-blue', 'board-red'].forEach(id => {
         const grid = document.querySelector(`#${id} .card-grid`);
@@ -59,7 +59,6 @@ function initBoards() {
             const img = document.createElement('img');
             img.src = src;
             
-            // Logique de clic
             let timer;
             div.onclick = () => {
                 clearTimeout(timer);
@@ -81,15 +80,11 @@ function initBoards() {
     updateTurnUI();
 }
 
-// 4. Gestion de l'interface
+// 4. Gestion des tours
 function updateTurnUI() {
-    const boardBlue = document.getElementById('board-blue');
-    const boardRed = document.getElementById('board-red');
-    const btn = document.getElementById('next-turn-btn');
-
-    boardBlue.classList.toggle('blue-active', isBlueTurn);
-    boardRed.classList.toggle('red-active', !isBlueTurn);
-    btn.className = isBlueTurn ? '' : 'red-turn';
+    document.getElementById('board-blue').classList.toggle('blue-active', isBlueTurn);
+    document.getElementById('board-red').classList.toggle('red-active', !isBlueTurn);
+    document.getElementById('next-turn-btn').className = isBlueTurn ? '' : 'red-turn';
 }
 
 document.getElementById('next-turn-btn').onclick = () => {
@@ -103,11 +98,18 @@ document.getElementById('reveal-btn').onclick = () => {
     document.getElementById('reveal-modal').style.display = 'flex';
 };
 
-// 5. Fermeture des modals
-window.onclick = (e) => {
-    if (e.target.classList.contains('modal') || e.target.classList.contains('close-btn')) {
-        document.getElementById('image-modal').style.display = 'none';
-        document.getElementById('reveal-modal').style.display = 'none';
+// 5. FERMETURE FACILE DES MODALS
+function closeAllModals() {
+    document.getElementById('image-modal').style.display = 'none';
+    document.getElementById('reveal-modal').style.display = 'none';
+}
+
+// Fermer en cliquant n'importe où sur le fond ou sur l'image zoomée
+document.getElementById('image-modal').onclick = closeAllModals;
+document.getElementById('reveal-modal').onclick = function(e) {
+    // Ne ferme la révélation que si on clique sur le fond noir ou le bouton
+    if (e.target.id === 'reveal-modal' || e.target.classList.contains('close-btn')) {
+        closeAllModals();
     }
 };
 
