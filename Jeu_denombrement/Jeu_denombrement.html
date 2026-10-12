@@ -11,22 +11,42 @@
       }
 
       .imgRonde {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
         border-radius: 50%;
         border: solid 2px transparent;
       }
 
-      td {
-        height: 50px;
-        width: 50px;
-        border: none;
-        text-align: center;
-        vertical-align: middle;
+      * { box-sizing: border-box; }
+
+      html { -webkit-text-size-adjust: 100%; }
+
+      body {
+        margin: 0;
+        padding: 4px;
+        max-width: 100vw;
       }
 
-      table {
-        margin: auto;
-        border-collapse: separate;
-        border-spacing: 2px;
+      button { touch-action: manipulation; }
+
+      /* Grille 10x10 : les cases s'adaptent à la largeur disponible (50px max) */
+      .grille {
+        display: grid;
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        gap: 2px;
+        width: 100%;
+        max-width: 522px;
+        margin: 0 auto;
+      }
+
+      .cell {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        border: 2px solid transparent;
+        border-radius: 12px;
       }
 
       .picClicked {
@@ -44,28 +64,47 @@
       .zone-dix8 { background-color: rgba(255, 192, 203, 0.3); border: 2px dashed pink; border-radius: 12px; }
       .zone-dix9 { background-color: rgba(255, 165, 0, 0.15); border: 2px dashed orange; border-radius: 12px; }
 
+      /* Taille de référence du bandeau de commande : s'adapte à la largeur de l'écran */
+      :root { --f: clamp(26px, 13vw, 64px); }
+
       .bandeau-cde {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 6px 16px;
         padding: 0.25em;
         border: 1px solid #888;
       }
 
+      .bandeau-cde-left {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .bandeau-cde-left button { padding: 2px; }
+
+      .bandeau-cde-left img { height: clamp(32px, 9vw, 50px) !important; width: auto; }
+
       .bandeau-cde-right {
         display: flex;
+        flex-wrap: nowrap;
         align-items: flex-end;
         text-align: center;
       }
 
       .groupe-area {
         display: flex;
-        font-size: 4em;
+        font-size: var(--f);
         font-weight: 700;
       }
 
       .bandeau-cde-right img {
-        width: 100px;
-        height: 45px;
+        display: block;
+        width: calc(var(--f) * 1.56);
+        height: calc(var(--f) * 0.7);
         margin-left: auto;
       }
 
@@ -110,31 +149,49 @@
       }
 
       .bandeau-cde-right .btn-valid {
-        font-size: 4em;
+        font-size: var(--f);
         color: #080;
       }
 
+      /* Zone de jeu : panneau des dizaines à gauche, grille à droite, toujours côte à côte */
+      .zone-jeu {
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+        margin-top: 4px;
+        width: 100%;
+      }
+
       .bandeau-domino-left {
-        width: 200px;
+        flex: 0 0 auto;
+        width: clamp(62px, 18vw, 200px);
         padding: 0.25em;
         border: 1px solid #888;
         text-align: center;
-        float: left;
       }
 
       #titre-domino {
         display: inline-block;
-        font-size: 1.5em;
+        font-size: clamp(0.6em, 3vw, 1.5em);
         font-weight: 700;
+        overflow-wrap: anywhere;
+      }
+
+      #affichage_domino img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 2px 0;
       }
 
       .bandeau-domino-right {
         position: relative;
-        display: flex;
-        width: 80%;
-        float: right;
-        align-items: flex-end;
-        text-align: center;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      @media (min-width: 900px) {
+        .bandeau-cde { justify-content: space-between; }
       }
 
       dialog {
@@ -143,7 +200,7 @@
         left: 50%;
         margin: 0;
         padding: 1em 2em 0;
-        min-width: 20em;
+        min-width: min(20em, 85vw);
         border: 2px solid;
         border-radius: 8px;
         text-align: center;
@@ -151,6 +208,8 @@
         transform: translate(-50%, -50%);
         overflow: hidden;
       }
+
+      dialog img { max-width: 100%; height: auto; }
 
       dialog button {
         margin: .5em 0 .5em;
@@ -213,6 +272,7 @@
     </div>
   </div>
 
+  <div class="zone-jeu">
   <div class="bandeau-domino-left">
     <div>
       <output id="titre-domino">Dizaine réalisée</output>
@@ -220,6 +280,7 @@
     <div id="affichage_domino"></div>  
   </div>
   <div class="bandeau-domino-right"></div>
+  </div>
 
   <!-- Boite de dialogue -->
   <dialog id="modal-info">
@@ -264,18 +325,18 @@
     ]; 
 
     function createTable() {
-      let Table = document.createElement('table');
+      const grille = document.createElement('div');
+      grille.className = 'grille';
       for (let i = 0; i < 10; i++) {
-        let line = document.createElement('tr');
         for (let j = 0; j < 10; j++) {
-          let cell = document.createElement('td');
+          const cell = document.createElement('div');
+          cell.className = 'cell';
           cell.id = "cell" + i + "_" + j;
-          line.appendChild(cell);
+          grille.appendChild(cell);
         }
-        Table.appendChild(line);
       }
       const conteneur = document.querySelector('.bandeau-domino-right');
-      conteneur.appendChild(Table);
+      conteneur.appendChild(grille);
 
       // Calque SVG qui dessine les zones "patatoïdes" par-dessus le tableau
       const NS = "http://www.w3.org/2000/svg";
@@ -285,9 +346,9 @@
       svg.innerHTML = `
         <defs>
           <filter id="blob" filterUnits="userSpaceOnUse" x="-100" y="-100" width="4000" height="4000" color-interpolation-filters="sRGB">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="flou"/>
+            <feGaussianBlur id="blob-flou" in="SourceGraphic" stdDeviation="6" result="flou"/>
             <feColorMatrix in="flou" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="forme"/>
-            <feMorphology in="forme" operator="dilate" radius="2" result="dilate"/>
+            <feMorphology id="blob-dilate" in="forme" operator="dilate" radius="2" result="dilate"/>
             <feComposite in="dilate" in2="forme" operator="out" result="contour"/>
             <feComponentTransfer in="forme" result="remplissage"><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
             <feMerge><feMergeNode in="remplissage"/><feMergeNode in="contour"/></feMerge>
@@ -379,6 +440,10 @@
       svg.querySelectorAll("g").forEach(g => g.remove());
       const NS = "http://www.w3.org/2000/svg";
       const base = svg.parentNode.getBoundingClientRect();
+      // Échelle : les réglages ont été pensés pour des cases de 50px
+      const echelle = document.getElementById("cell0_0").getBoundingClientRect().width / 50;
+      document.getElementById("blob-flou").setAttribute("stdDeviation", 6 * echelle);
+      document.getElementById("blob-dilate").setAttribute("radius", Math.max(1, 2 * echelle));
       for (const groupe of groupesZones) {
         const g = document.createElementNS(NS, "g");
         g.setAttribute("filter", "url(#blob)");
@@ -392,13 +457,13 @@
         for (const c of groupe.cellules) {
           if (c.pont) continue;
           const [, , r] = centre(c.k);
-          const marge = 4;
+          const marge = 4 * echelle;
           const rect = document.createElementNS(NS, "rect");
           rect.setAttribute("x", r.left - base.left - marge);
           rect.setAttribute("y", r.top - base.top - marge);
           rect.setAttribute("width", r.width + 2 * marge);
           rect.setAttribute("height", r.height + 2 * marge);
-          rect.setAttribute("rx", 14);
+          rect.setAttribute("rx", 14 * echelle);
           g.appendChild(rect);
         }
         // Ponts : traits épais reliant les centres des cases voisines du groupe
@@ -415,7 +480,7 @@
             ligne.setAttribute("x1", x1); ligne.setAttribute("y1", y1);
             ligne.setAttribute("x2", x2); ligne.setAttribute("y2", y2);
             ligne.setAttribute("stroke", couleur);
-            ligne.setAttribute("stroke-width", 24);
+            ligne.setAttribute("stroke-width", 24 * echelle);
             ligne.setAttribute("stroke-linecap", "round");
             g.appendChild(ligne);
           }
@@ -424,13 +489,14 @@
       }
     }
     window.addEventListener("resize", dessinerZones);
+    if (window.ResizeObserver) {
+      new ResizeObserver(dessinerZones).observe(document.querySelector('.bandeau-domino-right'));
+    }
     document.addEventListener("fullscreenchange", () => setTimeout(dessinerZones, 100));
 
     function clonePic() {
       let cellpos = posXY.pop();
       let ImageHeart = document.getElementById("elemImage").cloneNode(true);
-      ImageHeart.style.width = "50px";
-      ImageHeart.style.height = "50px";
       ImageHeart.id = 'DivCoeur' + increment++;
       ImageHeart.style.display = "inline-block";
       ImageHeart.classList.add('imgRonde');
@@ -468,7 +534,7 @@
           heart.parentNode.removeChild(heart.parentNode.firstChild);
         }
         // Supprime les zones et les cadres des dizaines
-        document.querySelectorAll("td[class*='zone-dix']").forEach(td => {
+        document.querySelectorAll(".cell[class*='zone-dix']").forEach(td => {
           td.className = td.className.replace(/zone-dix\d+/g, "").trim();
         });
         groupesZones.length = 0;
@@ -509,7 +575,7 @@
         // Application de la zone englobante sur les cellules (td) parentes des 10 images sélectionnées
         const tdsValides = [];
         for (const picclicked of picsclicked) {
-          const tdParent = picclicked.closest('td');
+          const tdParent = picclicked.closest('.cell');
           if (tdParent) {
             tdParent.classList.add(nomClassZone);
             tdsValides.push(tdParent);
