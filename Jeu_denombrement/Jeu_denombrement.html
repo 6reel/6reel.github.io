@@ -1,72 +1,613 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width"=head>
-    <title>Document</title>
-    <script src="script.js" defer></script>
-    <link href="style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de dénombrement</title>
+    <style>
+      #elemImage{
+        display: none;
+      }
+
+      .imgRonde {
+        border-radius: 50%;
+        border: solid 2px transparent;
+      }
+
+      td {
+        height: 50px;
+        width: 50px;
+        border: none;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      table {
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 2px;
+      }
+
+      .picClicked {
+        border: solid 2px red !important;
+      }
+
+      /* Zones enveloppantes (façon patatoïde/cadre global) pour chaque dizaine sur les cellules (td) */
+      .zone-dix1 { background-color: rgba(0, 128, 0, 0.15); border: 2px dashed green; border-radius: 12px; }
+      .zone-dix2 { background-color: rgba(0, 0, 255, 0.15); border: 2px dashed blue; border-radius: 12px; }
+      .zone-dix3 { background-color: rgba(0, 0, 0, 0.15); border: 2px dashed black; border-radius: 12px; }
+      .zone-dix4 { background-color: rgba(128, 128, 128, 0.15); border: 2px dashed grey; border-radius: 12px; }
+      .zone-dix5 { background-color: rgba(128, 0, 128, 0.15); border: 2px dashed purple; border-radius: 12px; }
+      .zone-dix6 { background-color: rgba(165, 42, 42, 0.15); border: 2px dashed brown; border-radius: 12px; }
+      .zone-dix7 { background-color: rgba(255, 255, 0, 0.25); border: 2px dashed #ccbc00; border-radius: 12px; }
+      .zone-dix8 { background-color: rgba(255, 192, 203, 0.3); border: 2px dashed pink; border-radius: 12px; }
+      .zone-dix9 { background-color: rgba(255, 165, 0, 0.15); border: 2px dashed orange; border-radius: 12px; }
+
+      .bandeau-cde {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.25em;
+        border: 1px solid #888;
+      }
+
+      .bandeau-cde-right {
+        display: flex;
+        align-items: flex-end;
+        text-align: center;
+      }
+
+      .groupe-area {
+        display: flex;
+        font-size: 4em;
+        font-weight: 700;
+      }
+
+      .bandeau-cde-right img {
+        width: 100px;
+        height: 45px;
+        margin-left: auto;
+      }
+
+      .bandeau-cde-right button {
+        display: block;
+        height: 1.25em;
+        margin: 2px;
+        padding: 0;
+        border: 1px solid #888;
+        font-size: 0.5em;
+        line-height: 1;
+        color: #fff;
+        cursor: pointer;
+        aspect-ratio: 1 / 1;
+      }
+
+      .bandeau-cde-right output {
+        display: block;
+        width: 1.25em;
+        margin: 2px;
+        border-radius: 0.125em;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      #affichageuni {
+        color: #00bfff;
+        background-color: #00f;
+      }
+
+      #affichagediz {
+        color: #8b0000;
+        background-color: #f00;
+      }
+
+      .groupe-bouton-dizaine button {
+        background-color: #f00;
+      }
+
+      .groupe-bouton-unite button {
+        background-color: #00f;
+      }
+
+      .bandeau-cde-right .btn-valid {
+        font-size: 4em;
+        color: #080;
+      }
+
+      .bandeau-domino-left {
+        width: 200px;
+        padding: 0.25em;
+        border: 1px solid #888;
+        text-align: center;
+        float: left;
+      }
+
+      #titre-domino {
+        display: inline-block;
+        font-size: 1.5em;
+        font-weight: 700;
+      }
+
+      .bandeau-domino-right {
+        position: relative;
+        display: flex;
+        width: 80%;
+        float: right;
+        align-items: flex-end;
+        text-align: center;
+      }
+
+      dialog {
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        margin: 0;
+        padding: 1em 2em 0;
+        min-width: 20em;
+        border: 2px solid;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 0 0.5em #000;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+      }
+
+      dialog button {
+        margin: .5em 0 .5em;
+        padding: .5em 2em;
+        border: 0;
+        border-radius: 4px;
+        text-shadow: none;
+        font-size: inherit;
+        outline-color: #000;
+        outline-offset: 2px;
+        color: #FFF;
+        background-color: #000;
+        box-shadow: 0 0 1em #888;
+        cursor: pointer;
+      }
+
+      dialog button:not(:disabled):hover {
+        color: #FFF;
+      }
+    </style>
 </head>
 <body>
+
   <img id="elemImage" src="imgs/coeur.png" name="image" width="150" height="120" />
 
-<div class="bandeau-cde">
- 
-  <div class="bandeau-cde-left">
-    <button id="populate" onclick="populate()"><img src="imgs/refresh.png" alt="icone" style="height:50px;" /></button>
-    <button onclick="effacer()"><img src="imgs/poubelle.png" alt="icone" style="height:50px;" /></button>
-    <button onclick="verifier()"><img src="imgs/dizaine_check.jpg" alt="icone" style="height:50px;" /></button>
-    <button id="fullscreen-button"><img src="imgs/fullscreen.png" alt="icone" style="height:50px;" /></button>
-  </div>
- 
-  <div class="bandeau-cde-right">
-    <div class="bandeau-cde-right-groupe">
-      <img src="imgs/dizaine.jpg" alt="">
- 
-      <div class="groupe-area">
-        <div class="groupe-bouton-dizaine">
-          <button onclick="nbrApresDiz()">▲</button>
-          <button onclick="nbrAvantDiz()">▼</button>
-        </div>
-        <output id="affichagediz">0</output>
-      </div>
+  <div class="bandeau-cde">
+    <div class="bandeau-cde-left">
+      <button id="populate" onclick="populate()"><img src="imgs/refresh.png" alt="icone" style="height:50px;" /></button>
+      <button onclick="effacer()"><img src="imgs/poubelle.png" alt="icone" style="height:50px;" /></button>
+      <button onclick="verifier()"><img src="imgs/dizaine_check.jpg" alt="icone" style="height:50px;" /></button>
+      <button id="fullscreen-button"><img src="imgs/fullscreen.png" alt="icone" style="height:50px;" /></button>
     </div>
- 
-    <div class="bandeau-cde-right-groupe">
-      <img src="imgs/unite.jpg" alt="">
- 
-      <div class="groupe-area">
-        <output id="affichageuni">0</output>
-        <div class="groupe-bouton-unite">
-          <button onclick="nbrApresUni()">▲</button>
-          <button onclick="nbrAvantUni()">▼</button>
+   
+    <div class="bandeau-cde-right">
+      <div class="bandeau-cde-right-groupe">
+        <img src="imgs/dizaine.jpg" alt="">
+        <div class="groupe-area">
+          <div class="groupe-bouton-dizaine">
+            <button onclick="nbrApresDiz()">▲</button>
+            <button onclick="nbrAvantDiz()">▼</button>
+          </div>
+          <output id="affichagediz">0</output>
         </div>
       </div>
-    </div>
- 
-    <div class="bandeau-cde-right-groupe">
-      <button class="btn-valid" onclick="validNombre()">✔</button>
+   
+      <div class="bandeau-cde-right-groupe">
+        <img src="imgs/unite.jpg" alt="">
+        <div class="groupe-area">
+          <output id="affichageuni">0</output>
+          <div class="groupe-bouton-unite">
+            <button onclick="nbrApresUni()">▲</button>
+            <button onclick="nbrAvantUni()">▼</button>
+          </div>
+        </div>
+      </div>
+   
+      <div class="bandeau-cde-right-groupe">
+        <button class="btn-valid" onclick="validNombre()">✔</button>
+      </div>
     </div>
   </div>
-</div>
-<div class="bandeau-domino-left">
-  <div>
-    <output id="titre-domino">Dizaine réalisée</output>
+
+  <div class="bandeau-domino-left">
+    <div>
+      <output id="titre-domino">Dizaine réalisée</output>
+    </div>
+    <div id="affichage_domino"></div>  
   </div>
-  <div id="affichage_domino">
-  </div>  
-</div>
-<div class="bandeau-domino-right">
-</div>
+  <div class="bandeau-domino-right"></div>
 
-<!--Boite de dialogue*/-->
-
-<dialog id="modal-info">
+  <!-- Boite de dialogue -->
+  <dialog id="modal-info">
     <p class="modal-header"></p>
     <p class="modal-content"></p>
     <p class="modal-footer"><button data-role="close">Fermer</button></p>
   </dialog>
-</body>
 
+  <script>
+    var fullscreenButton = document.getElementById("fullscreen-button");
+    var fullscreenImage = fullscreenButton.querySelector("img");
+
+    if (document.documentElement.requestFullscreen) {
+      fullscreenButton.addEventListener("click", function() {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          fullscreenImage.src = "imgs/fullscreen.png";
+        } else {
+          document.documentElement.requestFullscreen();
+          fullscreenImage.src = "imgs/exit-fullscreen.png";
+        }
+      });
+    } else {
+      fullscreenButton.style.display = "none";
+    }
+
+    let increment = 0;
+    const posXY = [];
+    let nbrhearts = 0;
+    let nbrverif = 0;
+    let nbrAfficheDiz = 0;
+    let nbrAfficheUni = 0;
+    let resultat = 0;
+
+    let Pics = [ 
+      ["coeur", "imgs/coeur.png"], 
+      ["pomme", "imgs/pomme.jpg"], 
+      ["ours", "imgs/ours.jpg"],
+      ["chien", "imgs/chien.jpg"],
+      ["soleil", "imgs/soleil.jpg"],
+      ["poisson", "imgs/poisson.jpg"]
+    ]; 
+
+    function createTable() {
+      let Table = document.createElement('table');
+      for (let i = 0; i < 10; i++) {
+        let line = document.createElement('tr');
+        for (let j = 0; j < 10; j++) {
+          let cell = document.createElement('td');
+          cell.id = "cell" + i + "_" + j;
+          line.appendChild(cell);
+        }
+        Table.appendChild(line);
+      }
+      const conteneur = document.querySelector('.bandeau-domino-right');
+      conteneur.appendChild(Table);
+
+      // Calque SVG qui dessine les zones "patatoïdes" par-dessus le tableau
+      const NS = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(NS, "svg");
+      svg.id = "calque-zones";
+      svg.setAttribute("style", "position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible;pointer-events:none;");
+      svg.innerHTML = `
+        <defs>
+          <filter id="blob" filterUnits="userSpaceOnUse" x="-100" y="-100" width="4000" height="4000" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="flou"/>
+            <feColorMatrix in="flou" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="forme"/>
+            <feMorphology in="forme" operator="dilate" radius="2" result="dilate"/>
+            <feComposite in="dilate" in2="forme" operator="out" result="contour"/>
+            <feComponentTransfer in="forme" result="remplissage"><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+            <feMerge><feMergeNode in="remplissage"/><feMergeNode in="contour"/></feMerge>
+          </filter>
+        </defs>`;
+      conteneur.appendChild(svg);
+    }
+    createTable();
+
+    // ===== Zones englobantes (une par dizaine validée) =====
+    const couleursZones = ["green", "blue", "black", "grey", "purple", "brown", "#ccbc00", "pink", "orange"];
+    const groupesZones = [];   // un élément par dizaine : { num, cellules: [{i, j, pont}] }
+
+    // Cellules voisines (4 directions)
+    function voisins(i, j) {
+      return [[i-1, j], [i+1, j], [i, j-1], [i, j+1]].filter(([a, b]) => a >= 0 && a < 10 && b >= 0 && b < 10);
+    }
+
+    // Découpe un ensemble de cellules en composantes connexes
+    function composantes(cles) {
+      const vus = new Set(), comps = [];
+      for (const c of cles) {
+        if (vus.has(c)) continue;
+        const comp = [], pile = [c];
+        vus.add(c);
+        while (pile.length) {
+          const cur = pile.pop();
+          comp.push(cur);
+          const [i, j] = cur.split("_").map(Number);
+          for (const [a, b] of voisins(i, j)) {
+            const k = a + "_" + b;
+            if (cles.has(k) && !vus.has(k)) { vus.add(k); pile.push(k); }
+          }
+        }
+        comps.push(comp);
+      }
+      return comps;
+    }
+
+    // Relie les morceaux séparés par un chemin de cases VIDES (sans traverser une autre image)
+    function calculerPonts(selection) {
+      const ponts = new Set();
+      const cles = new Set(selection);
+      const libre = (k) => {
+        if (cles.has(k)) return true;
+        const td = document.getElementById("cell" + k);
+        return td && !td.querySelector("img");
+      };
+      for (let securite = 0; securite < 20; securite++) {
+        const comps = composantes(cles);
+        if (comps.length <= 1) break;
+        const depart = new Set(comps[0]);
+        const parent = new Map();
+        const file = [...depart];
+        depart.forEach(k => parent.set(k, null));
+        let cible = null;
+        while (file.length && !cible) {
+          const cur = file.shift();
+          const [i, j] = cur.split("_").map(Number);
+          for (const [a, b] of voisins(i, j)) {
+            const k = a + "_" + b;
+            if (parent.has(k) || !libre(k)) continue;
+            parent.set(k, cur);
+            if (cles.has(k) && !depart.has(k)) { cible = k; break; }
+            file.push(k);
+          }
+        }
+        if (!cible) break;   // pas de chemin libre : on laisse les morceaux séparés
+        for (let k = parent.get(cible); k !== null && !depart.has(k); k = parent.get(k)) {
+          ponts.add(k);
+          cles.add(k);
+        }
+      }
+      return ponts;
+    }
+
+    function ajouterZone(num, tds) {
+      const selection = tds.map(td => td.id.replace("cell", ""));
+      const ponts = calculerPonts(selection);
+      const cellules = selection.map(k => ({ k, pont: false }))
+        .concat([...ponts].map(k => ({ k, pont: true })));
+      groupesZones.push({ num, cellules });
+      dessinerZones();
+    }
+
+    function dessinerZones() {
+      const svg = document.getElementById("calque-zones");
+      if (!svg) return;
+      svg.querySelectorAll("g").forEach(g => g.remove());
+      const NS = "http://www.w3.org/2000/svg";
+      const base = svg.parentNode.getBoundingClientRect();
+      for (const groupe of groupesZones) {
+        const g = document.createElementNS(NS, "g");
+        g.setAttribute("filter", "url(#blob)");
+        g.setAttribute("fill", couleursZones[(groupe.num - 1) % couleursZones.length]);
+        const ensemble = new Set(groupe.cellules.map(c => c.k));
+        const centre = (k) => {
+          const r = document.getElementById("cell" + k).getBoundingClientRect();
+          return [r.left - base.left + r.width / 2, r.top - base.top + r.height / 2, r];
+        };
+        // Cases sélectionnées : un rectangle arrondi légèrement agrandi
+        for (const c of groupe.cellules) {
+          if (c.pont) continue;
+          const [, , r] = centre(c.k);
+          const marge = 4;
+          const rect = document.createElementNS(NS, "rect");
+          rect.setAttribute("x", r.left - base.left - marge);
+          rect.setAttribute("y", r.top - base.top - marge);
+          rect.setAttribute("width", r.width + 2 * marge);
+          rect.setAttribute("height", r.height + 2 * marge);
+          rect.setAttribute("rx", 14);
+          g.appendChild(rect);
+        }
+        // Ponts : traits épais reliant les centres des cases voisines du groupe
+        const couleur = couleursZones[(groupe.num - 1) % couleursZones.length];
+        for (const c of groupe.cellules) {
+          if (!c.pont) continue;
+          const [x1, y1] = centre(c.k);
+          const [i, j] = c.k.split("_").map(Number);
+          for (const [a, b] of voisins(i, j)) {
+            const k2 = a + "_" + b;
+            if (!ensemble.has(k2)) continue;
+            const [x2, y2] = centre(k2);
+            const ligne = document.createElementNS(NS, "line");
+            ligne.setAttribute("x1", x1); ligne.setAttribute("y1", y1);
+            ligne.setAttribute("x2", x2); ligne.setAttribute("y2", y2);
+            ligne.setAttribute("stroke", couleur);
+            ligne.setAttribute("stroke-width", 24);
+            ligne.setAttribute("stroke-linecap", "round");
+            g.appendChild(ligne);
+          }
+        }
+        svg.appendChild(g);
+      }
+    }
+    window.addEventListener("resize", dessinerZones);
+    document.addEventListener("fullscreenchange", () => setTimeout(dessinerZones, 100));
+
+    function clonePic() {
+      let cellpos = posXY.pop();
+      let ImageHeart = document.getElementById("elemImage").cloneNode(true);
+      ImageHeart.style.width = "50px";
+      ImageHeart.style.height = "50px";
+      ImageHeart.id = 'DivCoeur' + increment++;
+      ImageHeart.style.display = "inline-block";
+      ImageHeart.classList.add('imgRonde');
+      ImageHeart.onclick = function() {
+        this.classList.toggle("picClicked");
+        nbrverif = document.querySelectorAll('.picClicked').length;
+      }
+      document.getElementById('cell' + cellpos).appendChild(ImageHeart);
+    }
+
+    function populate() {
+      let run = document.getElementById('populate').dataset.running;
+      if (run == "true") {
+        return false;
+      }
+      document.getElementById('populate').dataset.running = "true";
+      posXY.length = 0;
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+          posXY.push(i + '_' + j);
+        }
+      }
+      posXY.sort(() => Math.random() - 0.5);
+      let maxhearts = 99;
+      nbrhearts = Math.ceil(Math.random() * maxhearts);
+      for (let p = 0; p < nbrhearts; p++) {
+        clonePic();
+      }
+    }
+
+    function effacer() {
+      let allhearts = document.querySelectorAll('[id^=DivCoeur]');
+      if (allhearts.length > 0) {
+        for (var heart of allhearts) {
+          heart.parentNode.removeChild(heart.parentNode.firstChild);
+        }
+        // Supprime les zones et les cadres des dizaines
+        document.querySelectorAll("td[class*='zone-dix']").forEach(td => {
+          td.className = td.className.replace(/zone-dix\d+/g, "").trim();
+        });
+        groupesZones.length = 0;
+        dessinerZones();
+        nbrverif = 0;
+        Pics.sort(() => Math.random() - 0.5);
+        document.getElementById('elemImage').src = Pics[0][1];
+        document.getElementById('populate').dataset.running = "false";
+        
+        // Remise à zéro complète des compteurs et de l'affichage
+        nbrAfficheDiz = 0;
+        nbrAfficheUni = 0;
+        resultat = 0;
+        document.getElementById('affichagediz').innerHTML = 0;
+        document.getElementById('affichageuni').innerHTML = 0; 
+        document.getElementById("titre-domino").innerHTML = "Dizaine réalisée";
+     
+        let affichage_domino = document.getElementById('affichage_domino');
+        for (let i = affichage_domino.childNodes.length - 1; i >= 0; i--) {
+          affichage_domino.removeChild(affichage_domino.childNodes[i]);
+        }
+      }
+    }
+
+    function verifier() {
+      const nbrOK = document.querySelectorAll("[class*='zone-dix']").length;
+      const currentDizCount = nbrOK / 10;
+      const picsclicked = document.querySelectorAll(".picClicked");
+      
+      if (currentDizCount != 0) {
+         document.getElementById("titre-domino").innerHTML = "Dizaines réalisées";
+      }
+      
+      if (10 === nbrverif) {
+        const newnbrDizaines = currentDizCount + 1;
+        const nomClassZone = "zone-dix" + newnbrDizaines;
+        
+        // Application de la zone englobante sur les cellules (td) parentes des 10 images sélectionnées
+        const tdsValides = [];
+        for (const picclicked of picsclicked) {
+          const tdParent = picclicked.closest('td');
+          if (tdParent) {
+            tdParent.classList.add(nomClassZone);
+            tdsValides.push(tdParent);
+          }
+          picclicked.classList.remove("picClicked");
+          picclicked.onclick = {}; // Désactive les clics sur les images validées
+        }
+        // Zone englobante (patatoïde) autour des 10 images validées
+        ajouterZone(newnbrDizaines, tdsValides);
+        const myImage = new Image(150, 77);
+        myImage.src = 'imgs/' + Pics[0][0] + newnbrDizaines + '.jpg';
+        document.getElementById('affichage_domino').appendChild(myImage);  
+      } else {
+        for (const picclicked of picsclicked) {
+          picclicked.classList.remove("picClicked");
+        }
+        dixRate();
+      }
+      nbrverif = 0;
+    }
+
+    function nbrAvantDiz() {
+      if (nbrAfficheDiz == 0) {
+        nbrAfficheDiz = 9;
+      } else {
+        nbrAfficheDiz = nbrAfficheDiz - 1;
+      }
+      document.getElementById("affichagediz").innerHTML = nbrAfficheDiz;
+      resultat = nbrAfficheUni + nbrAfficheDiz * 10;
+    }
+     
+    function nbrApresDiz() {
+      if (nbrAfficheDiz == 9) {
+        nbrAfficheDiz = 0;
+      } else {
+        nbrAfficheDiz = nbrAfficheDiz + 1;
+      }
+      document.getElementById("affichagediz").innerHTML = nbrAfficheDiz;
+      resultat = nbrAfficheUni + nbrAfficheDiz * 10;
+    }
+
+    function nbrAvantUni() {
+      if (nbrAfficheUni == 0) {
+        nbrAfficheUni = 9;
+      } else {
+        nbrAfficheUni = nbrAfficheUni - 1;
+      }
+      document.getElementById("affichageuni").innerHTML = nbrAfficheUni;
+      resultat = nbrAfficheUni + nbrAfficheDiz * 10;
+    }
+     
+    function nbrApresUni() {
+      if (nbrAfficheUni == 9) {
+        nbrAfficheUni = 0;
+      } else {
+        nbrAfficheUni = nbrAfficheUni + 1;
+      }
+      document.getElementById("affichageuni").innerHTML = nbrAfficheUni;
+      resultat = nbrAfficheUni + nbrAfficheDiz * 10;
+    }
+
+    function validNombre() {
+      if (resultat == nbrhearts) {
+        dixGagne();
+      } else {
+        dixPerdu();
+      }
+    }
+
+    function dixGagne() {
+      const title = "<span class='bingo'>BRAVO</span>";
+      const msg = "<img src='imgs/yes.gif'><br>C'était bien " + nbrhearts + ".";
+      showModal(title, msg);
+    }
+
+    function dixPerdu() {
+      const title = "<span class='error'>DOMMAGE</span>";
+      const msg = "<img src='imgs/no.gif'><br>Cherche encore.";
+      showModal(title, msg);
+    }
+
+    function dixRate() {
+      const title = "<span class='error'>DOMMAGE</span>";
+      const msg = "<img src='imgs/dixrate.gif'><br>Ca ne fait pas 10.";
+      showModal(title, msg);
+    }
+
+    let modal = document.getElementById("modal-info");
+    function showModal(title, html) {
+      modal.querySelector(".modal-header").innerHTML = title;
+      modal.querySelector(".modal-content").innerHTML = html;
+      modal.showModal();
+    }
+
+    const btnClose = modal.querySelector("[data-role='close']");
+    btnClose.addEventListener("click", () => {
+      modal.close();
+    });
+  </script>
+</body>
 </html>
