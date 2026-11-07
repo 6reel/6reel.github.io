@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Films de Noël</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --primary: #ef4444;
+      --primary-hover: #dc2626;
+      --accent: #10b981;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      color: #f43f5e;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #334155;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .question-number {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+    }
+
+    .emojis {
+      font-size: 4rem;
+      margin: 20px 0;
+      letter-spacing: 10px;
+    }
+
+    .btn-hint {
+      background: transparent;
+      border: 1px solid #475569;
+      color: #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: all 0.2s;
+    }
+
+    .btn-hint:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .hint {
+      font-style: italic;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      display: none;
+      width: 100%;
+    }
+
+    .input-group {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-next {
+      background: var(--accent);
+      margin-top: 15px;
+      display: none;
+    }
+
+    .btn-next:hover {
+      background: #059669;
+    }
+
+    .solution {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      width: 100%;
+      display: none;
+      font-weight: 600;
+    }
+
+    .solution.correct {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid #10b981;
+    }
+
+    .solution.incorrect {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid #ef4444;
+    }
+
+    .results {
+      text-align: center;
+      display: none;
+    }
+
+    .results h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .results p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .container {
+        border: none;
+        box-shadow: none;
+        background: #fff;
+      }
+      .btn, .btn-hint, .input-group, .progress-bar {
+        display: none !important;
+      }
+      .hint {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>🎄 Quiz Films de Noël 🎅</h1>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <div id="quiz-screen" class="quiz-card">
+      <div class="question-number" id="q-number">Question 1 / 7</div>
+      <div class="emojis" id="q-emojis">🧒🏠🦹‍♂️</div>
+
+      <button class="btn-hint" id="hint-toggle-btn">💡 Voir l'indice</button>
+      <div class="hint" id="q-hint">Indice : Une maison défendue par des pièges ingénieux...</div>
+
+      <div class="input-group">
+        <input type="text" id="answer-input" placeholder="Tapez votre réponse ici..." autocomplete="off">
+      </div>
+
+      <button class="btn" id="submit-btn">Valider</button>
+
+      <div class="solution" id="solution-box"></div>
+
+      <button class="btn btn-next" id="next-btn">Question suivante ➔</button>
+    </div>
+
+    <div id="results-screen" class="results">
+      <h2>🎉 Félicitations !</h2>
+      <p id="score-text">Vous avez obtenu 0 sur 7 !</p>
+      <button class="btn" onclick="location.reload()">Recommencer le quiz</button>
+      <button class="btn btn-next" style="display:block; margin-top: 10px;" onclick="window.print()">Imprimer / Sauvegarder PDF</button>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        emojis: "🧒🏠🦹‍♂️",
+        hint: "Indice : Une maison défendue par des pièges ingénieux face à deux cambrioleurs maladroits.",
+        answer: "Maman j'ai raté l'avion",
+        keywords: ["maman", "rate", "avion", "home alone", "kevin"]
+      },
+      {
+        emojis: "🏢🦶🔫",
+        hint: "Indice : Ce film d'action culte se déroule entièrement dans un gratte-ciel lors d'une fête de bureau le soir de Noël.",
+        answer: "Piège de cristal (Die Hard)",
+        keywords: ["piege de cristal", "die hard", "bruce willis", "mcclane"]
+      },
+      {
+        emojis: "🟢🎅🎁",
+        hint: "Indice : Une créature grincheuse et solitaire qui déteste l'esprit des fêtes.",
+        answer: "Le Grinch",
+        keywords: ["grinch"]
+      },
+      {
+        emojis: "🚂🔔❄️",
+        hint: "Indice : Une aventure nocturne magique à bord d'une locomotive à vapeur vers le Pôle Nord.",
+        answer: "Le Pôle Express",
+        keywords: ["pole express", "polar express"]
+      },
+      {
+        emojis: "📞🗼🍷",
+        hint: "Indice : Une permanence de nuit chaotique un 24 décembre à Paris.",
+        answer: "Le Père Noël est une ordure",
+        keywords: ["pere noel est une ordure", "ordure", "pierre", "therese", "douce nuit"]
+      },
+      {
+        emojis: "🇬🇧💌🇺🇸",
+        hint: "Indice : Deux femmes échangent leurs domiciles de part et d'autre de l'Atlantique pour les vacances.",
+        answer: "The Holiday",
+        keywords: ["the holiday", "holiday"]
+      },
+      {
+        emojis: "💀🎃🎄",
+        hint: "Indice : Le roi d'une autre fête de l'année décide de s'emparer de la magie de Noël.",
+        answer: "L'Étrange Noël de monsieur Jack",
+        keywords: ["jack", "etrange noel", "nightmare before christmas", "jack skellington"]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const qNumber = document.getElementById("q-number");
+    const qEmojis = document.getElementById("q-emojis");
+    const qHint = document.getElementById("q-hint");
+    const hintToggleBtn = document.getElementById("hint-toggle-btn");
+    const answerInput = document.getElementById("answer-input");
+    const submitBtn = document.getElementById("submit-btn");
+    const solutionBox = document.getElementById("solution-box");
+    const nextBtn = document.getElementById("next-btn");
+    const progressBar = document.getElementById("progress");
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      qNumber.textContent = `Question ${currentQuestion + 1} / ${quizData.length}`;
+      qEmojis.textContent = q.emojis;
+      qHint.textContent = q.hint;
+      
+      // Réinitialisation de l'indice (masqué par défaut)
+      qHint.style.display = "none";
+      hintToggleBtn.style.display = "inline-block";
+      hintToggleBtn.textContent = "💡 Voir l'indice";
+
+      answerInput.value = "";
+      answerInput.disabled = false;
+      submitBtn.style.display = "block";
+      solutionBox.style.display = "none";
+      solutionBox.className = "solution";
+      nextBtn.style.display = "none";
+      progressBar.style.width = `${((currentQuestion) / quizData.length) * 100}%`;
+      answerInput.focus();
+    }
+
+    hintToggleBtn.addEventListener("click", () => {
+      if (qHint.style.display === "none" || qHint.style.display === "") {
+        qHint.style.display = "block";
+        hintToggleBtn.textContent = "🙈 Masquer l'indice";
+      } else {
+        qHint.style.display = "none";
+        hintToggleBtn.textContent = "💡 Voir l'indice";
+      }
+    });
+
+    function normalizeText(text) {
+      return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+    }
+
+    submitBtn.addEventListener("click", checkAnswer);
+    answerInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && !answerInput.disabled) {
+        checkAnswer();
+      }
+    });
+
+    function checkAnswer() {
+      const userText = normalizeText(answerInput.value);
+      const q = quizData[currentQuestion];
+
+      let isCorrect = false;
+
+      if (userText.length > 0) {
+        isCorrect = q.keywords.some(kw => userText.includes(normalizeText(kw)));
+      }
+
+      answerInput.disabled = true;
+      submitBtn.style.display = "none";
+
+      if (isCorrect) {
+        score++;
+        solutionBox.textContent = `Bravo ! C'était bien : ${q.answer}`;
+        solutionBox.classList.add("correct");
+      } else {
+        solutionBox.textContent = `Dommage ! La réponse était : ${q.answer}`;
+        solutionBox.classList.add("incorrect");
+      }
+
+      solutionBox.style.display = "block";
+      nextBtn.style.display = "block";
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    function showResults() {
+      document.getElementById("quiz-screen").style.display = "none";
+      document.getElementById("results-screen").style.display = "block";
+      document.getElementById("score-text").textContent = `Vous avez obtenu ${score} sur ${quizData.length} !`;
+      progressBar.style.width = "100%";
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
