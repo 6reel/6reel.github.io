@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blind Test de Noël - Le Grand Défi</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 25px;
+    }
+    h1 { color: #f1c40f; font-size: 1.8rem; margin-bottom: 8px; }
+    p { color: #94a3b8; font-size: 0.95rem; }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: #1e293b;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .card-title {
+      font-weight: bold;
+      color: #e2e8f0;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    audio {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 12px;
+    }
+
+    .btn-answer {
+      background: #334155;
+      color: #38bdf8;
+      border: 1px solid #475569;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .btn-answer:hover {
+      background: #475569;
+      color: #ffffff;
+    }
+
+    .answer-box {
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid #10b981;
+      border-radius: 8px;
+      color: #34d399;
+      font-size: 0.9rem;
+      text-align: center;
+      width: 100%;
+      display: none; /* Masqué par défaut */
+    }
+
+    .answer-title {
+      font-weight: bold;
+      color: #ffffff;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎶 Le Blind Test Décalé de Noël</h1>
+    <p>Écoutez les 10 extraits en équipe, devinez les titres à l'oral, puis cliquez sur le bouton pour vérifier si vous aviez raison !</p>
+  </header>
+
+  <div class="grid-container">
+
+    <!-- Extrait 1 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°1</div>
+      <audio controls src="audio/extrait1.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(1)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-1">
+        <span class="answer-title">Petit Papa Noël - Tino Rossi</span>
+      </div>
+    </div>
+
+    <!-- Extrait 2 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°2</div>
+      <audio controls src="audio/extrait2.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(2)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-2">
+        <span class="answer-title">Mon beau sapin / O Christmas Tree</span>
+      </div>
+    </div>
+
+    <!-- Extrait 3 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°3</div>
+      <audio controls src="audio/extrait3.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(3)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-3">
+        <span class="answer-title">Petit Garçon - Graeme Allwright</span>
+      </div>
+    </div>
+
+    <!-- Extrait 4 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°4</div>
+      <audio controls src="audio/extrait4.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(4)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-4">
+        <span class="answer-title">Vive le Vent / Jingle Bells</span>
+      </div>
+    </div>
+
+    <!-- Extrait 5 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°5</div>
+      <audio controls src="audio/extrait5.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(5)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-5">
+        <span class="answer-title">Douce Nuit / Silent Night</span>
+      </div>
+    </div>
+
+    <!-- Extrait 6 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°6</div>
+      <audio controls src="audio/extrait6.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(6)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-6">
+        <span class="answer-title">All I Want For Christmas Is You - Mariah Carey</span>
+      </div>
+    </div>
+
+    <!-- Extrait 7 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°7</div>
+      <audio controls src="audio/extrait7.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(7)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-7">
+        <span class="answer-title">Feliz Navidad</span>
+      </div>
+    </div>
+
+    <!-- Extrait 8 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°8</div>
+      <audio controls src="audio/extrait8.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(8)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-8">
+        <span class="answer-title">Last Christmas - Wham!</span>
+      </div>
+    </div>
+
+    <!-- Extrait 9 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°9</div>
+      <audio controls src="audio/extrait9.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(9)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-9">
+        <span class="answer-title">Il est né le divin Enfant</span>
+      </div>
+    </div>
+
+    <!-- Extrait 10 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°10</div>
+      <audio controls src="audio/extrait10.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(10)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-10">
+        <span class="answer-title">We Wish You A Merry Christmas</span>
+      </div>
+    </div>
+
+        <!-- Extrait 11 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°11</div>
+      <audio controls src="audio/extrait11.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(11)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-11">
+        <span class="answer-title">Sleigh ride</span>
+      </div>
+    </div>
+
+        <!-- Extrait 12 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°12</div>
+      <audio controls src="audio/extrait12.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(12)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-12">
+        <span class="answer-title">Rudolf le renne au nez rouge</span>
+      </div>
+    </div>
+
+        <!-- Extrait 13 -->
+    <div class="card">
+      <div class="card-title">🎵 Extrait n°13</div>
+      <audio controls src="audio/extrait13.mp3"></audio>
+      <button class="btn-answer" onclick="toggleAnswer(13)">👁️ Afficher la réponse</button>
+      <div class="answer-box" id="ans-13">
+        <span class="answer-title">Happy Xmas (War is over) - John Lennon</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleAnswer(id) {
+      const box = document.getElementById(`ans-${id}`);
+      const btn = event.target;
+      
+      if (box.style.display === "none" || box.style.display === "") {
+        box.style.display = "block";
+        btn.innerText = "🙈 Masquer la réponse";
+      } else {
+        box.style.display = "none";
+        btn.innerText = "👁️ Afficher la réponse";
+      }
+    }
+  </script>
+
+</body>
+</html>
