@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Noms de Lutins Vintage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --vintage-gold: #c5a059;
+            --vintage-red: #8b1e1e;
+            --vintage-bg: #e8dfcb;
+            --vintage-wood: #2b1810;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Playfair Display', Georgia, serif;
+            background: #141f17;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #2b1a0e;
+        }
+
+        #snow-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .postcard-container {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 680px;
+            background: #f4ebd9;
+            background-image: 
+                radial-gradient(#d3c4a5 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(0,0,0,0.05));
+            background-size: 20px 20px, 100% 100%;
+            border-radius: 6px;
+            padding: 40px 30px;
+            box-shadow: 
+                0 0 0 12px #2b1810,
+                0 0 0 16px #c5a059,
+                0 25px 50px rgba(0, 0, 0, 0.7);
+            border: 2px dashed #9e825a;
+        }
+
+        .stamp-box {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 75px;
+            height: 90px;
+            border: 2px dashed #a83232;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fcf8f0;
+            transform: rotate(3deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .stamp-box .year {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 900;
+            color: #a83232;
+        }
+
+        .stamp-box .text {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .postmark {
+            position: absolute;
+            top: 15px;
+            right: 80px;
+            width: 70px;
+            height: 70px;
+            border: 1px solid rgba(139, 30, 30, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: rgba(139, 30, 30, 0.5);
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: var(--vintage-red);
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #66503b;
+            border-bottom: 1px solid #d0c0a3;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+
+        .machine-frame {
+            background: #3a2218;
+            background-image: linear-gradient(135deg, #44291d 0%, #29170e 100%);
+            border: 4px solid #c5a059;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 8px 15px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .reels-container {
+            display: flex;
+            gap: 15px;
+            background: #1a0f09;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #8c6f3d;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+            position: relative;
+        }
+
+        .reels-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 48px;
+            transform: translateY(-50%);
+            border-top: 2px solid rgba(197, 160, 89, 0.4);
+            border-bottom: 2px solid rgba(197, 160, 89, 0.4);
+            background: rgba(197, 160, 89, 0.05);
+            pointer-events: none;
+        }
+
+        .reel-window {
+            flex: 1;
+            height: 130px;
+            overflow: hidden;
+            background: #fdfaf3;
+            background-image: linear-gradient(to bottom, #e3d5b8 0%, #ffffff 50%, #e3d5b8 100%);
+            border-radius: 4px;
+            border: 1px solid #735932;
+            position: relative;
+            box-shadow: inset 0 10px 15px rgba(0,0,0,0.5), inset 0 -10px 15px rgba(0,0,0,0.5);
+        }
+
+        .reel-strip {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            transition: transform 0.1s linear;
+        }
+
+        .reel-item {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #2b1810;
+            padding: 0 10px;
+            word-break: break-word;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        .btn-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .wreath-svg {
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .push-btn {
+            position: relative;
+            z-index: 4;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: radial-gradient(circle at 35% 35%, #a83232 0%, #6b1d1d 70%, #421010 100%);
+            box-shadow: 
+                0 0 0 6px #c5a059,
+                0 0 0 9px #4a3319,
+                0 8px 15px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.1s ease;
+        }
+
+        .push-btn:active {
+            transform: scale(0.94);
+            box-shadow: 
+                0 0 0 6px #c5a059,
+                0 0 0 9px #4a3319,
+                0 2px 5px rgba(0,0,0,0.6);
+        }
+
+        .push-btn span {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #f4ebd9;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+        }
+
+        .copy-banner {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px dashed #8c6f3d;
+            padding: 8px 16px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            color: #57422d;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #e6dabe;
+            color: #2b1810;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="postcard-container">
+        <div class="postmark">PÔLE NORD<br>★ 2026 ★</div>
+        <div class="stamp-box">
+            <span class="year">2026</span>
+            <span class="text">Postes du Père Noël</span>
+        </div>
+
+        <header>
+            <h1>Noms de Lutins</h1>
+            <div class="subtitle">La Rigolade de Noël</div>
+        </header>
+
+        <div class="machine-frame">
+            <div class="reels-container">
+                <div class="reel-window">
+                    <div class="reel-strip" id="strip-prenom"></div>
+                </div>
+                <div class="reel-window">
+                    <div class="reel-strip" id="strip-nom"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="btn-wrapper">
+                <svg class="wreath-svg" viewBox="0 0 100 100">
+                    <path d="M 50 12 A 38 38 0 1 0 50 88 A 38 38 0 1 0 50 12" fill="none" stroke="#2d4a27" stroke-width="6" stroke-dasharray="4 2"/>
+                    <circle cx="50" cy="11" r="3" fill="#b82525"/>
+                    <circle cx="46" cy="14" r="2.5" fill="#d93636"/>
+                    <circle cx="54" cy="14" r="2.5" fill="#911b1b"/>
+                    <circle cx="89" cy="50" r="3" fill="#b82525"/>
+                    <circle cx="86" cy="46" r="2.5" fill="#d93636"/>
+                    <circle cx="86" cy="54" r="2.5" fill="#911b1b"/>
+                    <circle cx="50" cy="89" r="3" fill="#b82525"/>
+                    <circle cx="46" cy="86" r="2.5" fill="#d93636"/>
+                    <circle cx="54" cy="86" r="2.5" fill="#911b1b"/>
+                    <circle cx="11" cy="50" r="3" fill="#b82525"/>
+                    <circle cx="14" cy="46" r="2.5" fill="#d93636"/>
+                    <circle cx="14" cy="54" r="2.5" fill="#911b1b"/>
+                    <path d="M 23 23 Q 18 15 25 10 Q 30 18 23 23" fill="#385e32"/>
+                    <path d="M 77 23 Q 82 15 75 10 Q 70 18 77 23" fill="#385e32"/>
+                    <path d="M 77 77 Q 82 85 75 90 Q 70 82 77 77" fill="#385e32"/>
+                    <path d="M 23 77 Q 18 85 25 90 Q 30 82 23 77" fill="#385e32"/>
+                </svg>
+                <button class="push-btn" id="btn-prenom">
+                    <span>Prénom</span>
+                </button>
+            </div>
+
+            <div class="btn-wrapper">
+                <svg class="wreath-svg" viewBox="0 0 100 100">
+                    <path d="M 50 12 A 38 38 0 1 0 50 88 A 38 38 0 1 0 50 12" fill="none" stroke="#2d4a27" stroke-width="6" stroke-dasharray="4 2"/>
+                    <circle cx="50" cy="11" r="3" fill="#b82525"/>
+                    <circle cx="46" cy="14" r="2.5" fill="#d93636"/>
+                    <circle cx="54" cy="14" r="2.5" fill="#911b1b"/>
+                    <circle cx="89" cy="50" r="3" fill="#b82525"/>
+                    <circle cx="86" cy="46" r="2.5" fill="#d93636"/>
+                    <circle cx="86" cy="54" r="2.5" fill="#911b1b"/>
+                    <circle cx="50" cy="89" r="3" fill="#b82525"/>
+                    <circle cx="46" cy="86" r="2.5" fill="#d93636"/>
+                    <circle cx="54" cy="86" r="2.5" fill="#911b1b"/>
+                    <circle cx="11" cy="50" r="3" fill="#b82525"/>
+                    <circle cx="14" cy="46" r="2.5" fill="#d93636"/>
+                    <circle cx="14" cy="54" r="2.5" fill="#911b1b"/>
+                    <path d="M 23 23 Q 18 15 25 10 Q 30 18 23 23" fill="#385e32"/>
+                    <path d="M 77 23 Q 82 15 75 10 Q 70 18 77 23" fill="#385e32"/>
+                    <path d="M 77 77 Q 82 85 75 90 Q 70 82 77 77" fill="#385e32"/>
+                    <path d="M 23 77 Q 18 85 25 90 Q 30 82 23 77" fill="#385e32"/>
+                </svg>
+                <button class="push-btn" id="btn-nom">
+                    <span>Nom</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="copy-banner">
+            <button class="copy-btn" id="copy-btn">Copier le nom du lutin</button>
+        </div>
+    </div>
+
+    <script>
+        const prenoms = [
+            "Bâtonnet", "Baiser", "Bécot", "Biscotte", "Brioche", "Câlin", "Cannelle", "Caramel",
+            "Chaud-Froid", "Chaussette", "Chocolat", "Chouquette", "Clémentine", "Coquin", "Crépitant",
+            "Désir", "Douceur", "Écharpe", "Étincelle", "Flocon", "Frisson", "Gourmand", "Grelot",
+            "Guirlande", "Lutin", "Meringue", "Mistigri", "Papillote", "Noisette", "Nougatin",
+            "Oreiller", "Paillette", "Pain-d'Épices", "Patin", "Piment", "Pistache", "Plume",
+            "Polisson", "Pompon", "Popotin", "Poutou", "Praline", "Ruban", "Sapinette", "Soie",
+            "Sucre-d'Orge", "Tentation", "Velours", "Zeste", "Zigzag"
+        ];
+
+        const noms = [
+            "Au-Pied-Du-Sapin", "Bas-Le-Bas", "Bécot-Brûlant", "Bonne-Hotte", "Boule-Chauffe",
+            "Bûche-Tendre", "Calbute-Fringant", "Caresse-Givre", "Chaleur-D'Hiver", "Chaud-Sous-La-Couette",
+            "Chauffe-Cuisse", "Cœur-De-Chauffe", "Coin-Du-Feu", "Couverture-Pour-Deux", "Cuisse-Tendre",
+            "Dans-Le-Lit", "Déballage-Express", "Douce-Nuit", "Embrasse-Sous-Le-Gui", "Effeuille-Sapin",
+            "Fesse-Grelotte", "Flambée-De-Minuit", "Fleur-De-Givre", "Frotte-Minette", "Garde-Chaud",
+            "Glace-Fondue", "Grelot-Frétillant", "Hotte-Pleine", "Joue-Contre-Joue", "Jupe-Relevée",
+            "Lèche-Sucre", "Leste-Cuisse", "Lorgne-Sous-La-Jupe", "Lumières-Tisées", "Mains-Baladeuses",
+            "Marron-Chaud", "Moite-Mousse", "Nuit-Coquine", "Nuit-De-Fête", "Patin-Glissé",
+            "Pente-Glissante", "Poil-Au-Feu", "Prends-Moi-Nu", "Pyjama-Perdu", "Roule-Boule",
+            "Sens-Dessus-Dessous", "Sous-Le-Plaid", "Sucre-Glissant", "Tire-Bouchon", "Touffe-Givre"
+        ];
+
+        let currentPrenom = prenoms[0];
+        let currentNom = noms[0];
+
+        const stripPrenom = document.getElementById('strip-prenom');
+        const stripNom = document.getElementById('strip-nom');
+
+        function setupReel(strip, items) {
+            strip.innerHTML = '';
+            items.forEach(text => {
+                const item = document.createElement('div');
+                item.className = 'reel-item';
+                item.textContent = text;
+                strip.appendChild(item);
+            });
+        }
+
+        setupReel(stripPrenom, prenoms);
+        setupReel(stripNom, noms);
+
+        function spinReel(strip, items, callback) {
+            const itemHeight = 130;
+            const totalItems = items.length;
+            const randomIndex = Math.floor(Math.random() * totalItems);
+            const extraRounds = 3;
+            const targetIndex = (extraRounds * totalItems) + randomIndex;
+            
+            const fullList = [];
+            for(let i = 0; i <= extraRounds + 1; i++) {
+                fullList.push(...items);
+            }
+            setupReel(strip, fullList);
+
+            const startTime = performance.now();
+            const duration = 2000;
+
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                
+                const currentY = easeOut * (targetIndex * itemHeight);
+                strip.style.transform = `translateY(-${currentY}px)`;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    const finalIndex = randomIndex;
+                    strip.style.transform = `translateY(-${finalIndex * itemHeight}px)`;
+                    setupReel(strip, [items[finalIndex]]);
+                    strip.style.transform = `translateY(0px)`;
+                    callback(items[finalIndex]);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        document.getElementById('btn-prenom').addEventListener('click', () => {
+            spinReel(stripPrenom, prenoms, (res) => {
+                currentPrenom = res;
+            });
+        });
+
+        document.getElementById('btn-nom').addEventListener('click', () => {
+            spinReel(stripNom, noms, (res) => {
+                currentNom = res;
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 40,
+                        spread: 60,
+                        origin: { y: 0.7 },
+                        colors: ['#c5a059', '#8b1e1e', '#2d4a27']
+                    });
+                }
+            });
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            const fullName = `${currentPrenom} ${currentNom}`;
+            navigator.clipboard.writeText(fullName).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.textContent = `Copié : ${fullName} !`;
+                setTimeout(() => {
+                    btn.textContent = "Copier le nom du lutin";
+                }, 2000);
+            });
+        });
+
+        // Animation de la neige
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const flakes = Array.from({ length: 45 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 3 + 1,
+            d: Math.random() * 1 + 0.5
+        }));
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+            ctx.beginPath();
+            flakes.forEach(f => {
+                ctx.moveTo(f.x, f.y);
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            });
+            ctx.fill();
+
+            flakes.forEach(f => {
+                f.y += f.d;
+                if (f.y > canvas.height) {
+                    f.y = -10;
+                    f.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(drawSnow);
+        }
+        drawSnow();
+    </script>
+</body>
+</html>
