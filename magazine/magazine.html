@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magazine</title>
+<style>
+:root{--paper:#f6f2e8;--fit:contain}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#2a1a0e;font-family:Georgia,"Times New Roman",serif;user-select:none;-webkit-user-select:none}
+#table,#table div{position:fixed;inset:0}
+#seams{background:repeating-linear-gradient(to bottom,transparent 0,transparent 237px,rgba(0,0,0,.5) 238px,rgba(0,0,0,.5) 240px,rgba(255,255,255,.06) 240px,rgba(255,255,255,.06) 242px)}
+#light{background:radial-gradient(ellipse 70% 65% at 50% 45%,rgba(255,226,180,.3),rgba(255,226,180,0) 70%),radial-gradient(ellipse at center,rgba(0,0,0,0) 45%,rgba(0,0,0,.65) 100%)}
+#stage{position:fixed;inset:0;z-index:1;touch-action:none}
+#book{position:absolute;left:50%;top:calc(50% - 26px);width:calc(var(--w)*2);height:var(--h);margin-left:calc(var(--w)*-1);margin-top:calc(var(--h)*-.5)}
+.sh{position:absolute;top:0;height:100%;background:#000;z-index:0}
+#sh1{opacity:.55;filter:blur(18px);margin:16px 0 0 10px}
+#sh2{opacity:.5;filter:blur(3px);margin:3px 0 0 2px}
+.edge{position:absolute;top:3px;height:calc(var(--h) - 6px);background:repeating-linear-gradient(90deg,#efe8d8 0 1px,#bdb39c 1px 2px);box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.slot{position:absolute;top:0;width:var(--w);height:var(--h)}
+#sL{left:0}#sR{left:var(--w)}
+.face{position:absolute;inset:0;overflow:hidden;background:var(--paper)}
+.pg{position:absolute;inset:0;background:var(--paper) center/var(--fit) no-repeat}
+.ph{position:absolute;inset:4%;border:2px dashed #cfc6af;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a99f86;font-size:calc(var(--w)*.035)}
+.ph b{font-size:calc(var(--w)*.2);font-weight:400;line-height:1}
+.gut{position:absolute;inset:0;pointer-events:none}
+.gl{background:linear-gradient(to right,rgba(0,0,0,.3),rgba(0,0,0,.07) 4%,transparent 13%)}
+.gr{background:linear-gradient(to left,rgba(0,0,0,.3),rgba(0,0,0,.07) 4%,transparent 13%)}
+#corner{position:absolute;top:0;width:var(--w);height:var(--h);z-index:55;pointer-events:none;display:none}
+#corner.R{left:var(--w)}#corner.L{left:0;transform:scaleX(-1)}
+.ov{position:absolute;inset:0;pointer-events:none}
+#fs{filter:drop-shadow(-2px -2px 5px rgba(0,0,0,.45))}
+.fl{transform-origin:0 0}
+#ui{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:30px;background:rgba(25,15,8,.62);backdrop-filter:blur(6px);color:#f1e7d3;font-size:14px}
+#ui button{border:0;background:transparent;color:inherit;font:inherit;font-size:20px;width:38px;height:38px;border-radius:50%;cursor:pointer}
+#ui button:hover:not(:disabled){background:rgba(255,255,255,.14)}
+#ui button:focus-visible{outline:2px solid #f1e7d3}
+#ui button:disabled{opacity:.3;cursor:default}
+#lbl{min-width:130px;text-align:center}
+#ui{visibility:hidden}
+#intro{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,3vh,28px);padding:24px;text-align:center;color:#f6f2e8;cursor:pointer;background:radial-gradient(ellipse at center,rgba(42,26,14,.55),rgba(20,11,5,.9) 100%);backdrop-filter:blur(3px);transition:opacity 1.8s cubic-bezier(.4,0,.2,1),visibility 0s linear 1.8s}
+#intro.out{opacity:0;visibility:hidden;pointer-events:none}
+#intro .ln{opacity:0;transform:translateY(22px) scale(.97);filter:blur(8px);transition:opacity 1.6s cubic-bezier(.22,.61,.36,1),transform 2s cubic-bezier(.22,.61,.36,1),filter 1.6s ease}
+#intro .ln.on{opacity:1;transform:none;filter:blur(0)}
+#intro .ln.off{opacity:0;transform:translateY(-14px) scale(1.02);filter:blur(6px);transition-duration:1.3s}
+#i1{font-size:clamp(12px,2.2vw,17px);letter-spacing:.32em;text-transform:uppercase;color:#e9c46a;border:1px solid rgba(233,196,106,.7);padding:8px 18px;border-radius:30px}
+#i2{font-size:clamp(18px,3.4vw,32px);line-height:1.35;max-width:760px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+#i2 em{color:#e9c46a;font-style:normal;font-weight:700}
+#i3{font-size:clamp(34px,8vw,84px);font-style:italic;font-weight:700;color:#e9c46a;text-shadow:0 3px 0 #7a4a12,0 6px 24px rgba(233,196,106,.35)}
+@media (prefers-reduced-motion:reduce){#intro .ln,#intro{transition:opacity .4s!important;filter:none!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div id="table"><div id="grain"></div><div id="seams"></div><div id="light"></div></div>
+<div id="stage"><div id="book">
+  <div class="sh" id="sh1"></div><div class="sh" id="sh2"></div>
+  <div class="edge" id="eL"></div><div class="edge" id="eR"></div>
+  <div class="slot" id="sL"></div><div class="slot" id="sR"></div>
+  <div id="corner"></div>
+</div></div>
+<div id="ui"><button id="prev" aria-label="Page précédente">‹</button><span id="lbl"></span><button id="next" aria-label="Page suivante">›</button><button id="full" aria-label="Plein écran">⛶</button></div>
+<div id="intro">
+  <div class="ln" id="i1">Édition limitée 2026</div>
+  <div class="ln" id="i2">La collection complète des <em>16 figurines</em> à collectionner + le décor</div>
+  <div class="ln" id="i3">Collectionne-les tous !</div>
+</div>
+<script>
+/* ===== RÉGLAGES ===== */
+const FOLDER = "";            // dossier des images ("" = même dossier que ce fichier)
+const EXTS = ["jpg","jpeg","png","webp","JPG","JPEG","PNG","WEBP","gif","avif"];
+const FILES = null;           // ou une liste de 18 noms : ["a.jpg","b.jpg",...]
+const RATIO = null;           // largeur/hauteur d'une page (ex. 1.5) ; null = ratio de image_1
+const FIT = "contain";        // "contain" = image entière ; "cover" = remplit la page (rognage)
+const TURN_MS = 1100;         // durée du tournage d'une page
+const SHADOW = 1;             // intensité des ombres du pli (0 à 1.5)
+/* ==================== */
+const NP = 18, NL = 9, $ = s => document.querySelector(s);
+document.documentElement.style.setProperty('--fit', FIT);
+const svg = "<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.008 0.2' numOctaves='5' seed='7'/><feColorMatrix type='matrix' values='1.5 0 0 0 -.1 .9 0 0 0 -.05 .45 0 0 0 -.03 0 0 0 0 1'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>";
+$('#grain').style.background = "#6a4423 url(\"data:image/svg+xml," + encodeURIComponent(svg) + "\")";
+const book = $('#book'), corner = $('#corner');
+const pages = Array.from({length: NP}, () => ({src: null}));
+let geo = {w: 600, h: 450}, autoRatio = null, f = 0, busy = false;
+const clamp = x => Math.max(0, Math.min(1, x));
+const easeIO = p => p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2, easeO = p => 1 - Math.pow(1 - p, 3);
+const dv = c => { const d = document.createElement('div'); d.className = c; return d; };
+
+function pg(i) { const d = dv('pg'); d.dataset.i = i; fill(d); return d; }
+function fill(d) {
+  const p = pages[d.dataset.i];
+  if (p.src) { d.style.backgroundImage = 'url("' + p.src + '")'; d.innerHTML = ''; }
+  else d.innerHTML = '<div class="ph"><b>' + (+d.dataset.i + 1) + '</b>image_' + (+d.dataset.i + 1) + '</div>';
+}
+/* une page (index i) ; mir = bitmap retourné ; reliure à droite si i impair */
+function face(i, mir) {
+  if (i < 0 || i >= NP) return null;
+  const d = dv('face');
+  d.append(pg(i), dv('gut ' + (i % 2 ? 'gr' : 'gl')));
+  if (mir) d.style.transform = 'scaleX(-1)';
+  return d;
+}
+function statics() {
+  for (const [id, i] of [['#sL', 2*f - 1], ['#sR', 2*f]]) {
+    const s = $(id), e = face(i, false); s.innerHTML = ''; if (e) s.append(e);
+  }
+}
+function paintBook(fe) {
+  const w = geo.w, L = clamp(fe), R = clamp(9 - fe);
+  book.style.transform = 'translateX(' + (-w/2*(1 - L) + w/2*clamp(fe - 8)) + 'px)';
+  for (const s of [$('#sh1'), $('#sh2')]) { s.style.left = w*(1 - L) + 'px'; s.style.width = w*(L + R) + 'px'; }
+  const wl = fe*1.1, wr = (9 - fe)*1.1;
+  $('#eL').style.cssText = 'left:' + (w*(1 - L) - wl) + 'px;width:' + wl + 'px';
+  $('#eR').style.cssText = 'left:' + (w + w*R) + 'px;width:' + wr + 'px';
+}
+function layout() {
+  const W = innerWidth, H = innerHeight, r = RATIO || autoRatio || 4/3;
+  const w = Math.max(120, Math.min(W*.455, (H - 100)*.86*r)), h = w/r;
+  geo = {w, h};
+  book.style.setProperty('--w', w + 'px'); book.style.setProperty('--h', h + 'px');
+  paintBook(f); drawCorner();
+}
+
+/* ---- le pli : le coin (w,h) est ramené en P ; la ligne de pli est la médiatrice ---- */
+let cs = 0, curSide = null, cornerKey = '', wantSide = null, wantS = 0, looping = false, lastPt = null;
+let fr, fl, sF, sL, sU;
+const vis = v => { $('#sL').style.visibility = $('#sR').style.visibility = 'visible'; if (!v && curSide) $('#s' + curSide).style.visibility = 'hidden'; };
+function setSide(side) {
+  curSide = side; corner.className = side;
+  const key = side + f; if (key === cornerKey) return; cornerKey = key;
+  const R = side === 'R', F = R ? 2*f : 2*f - 1, B = R ? 2*f + 1 : 2*f - 2, U = R ? 2*f + 2 : 2*f - 3;
+  corner.innerHTML = '';
+  const u = face(U, !R), fs = dv('ov'); fs.id = 'fs';
+  sU = dv('ov'); fr = dv('ov'); sF = dv('ov'); fl = dv('ov fl'); sL = dv('ov');
+  const a = face(F, !R); if (a) fr.append(a); fr.append(sF);
+  fl.append(face(B, R), sL); fs.append(fl);
+  if (u) corner.append(u);
+  corner.append(sU, fr, fs);
+}
+function clip(n, d, sg) {
+  const {w, h} = geo, v = [[0,0],[w,0],[w,h],[0,h]], o = [];
+  const val = p => sg*(n[0]*p[0] + n[1]*p[1] - d);
+  for (let i = 0; i < 4; i++) {
+    const a = v[i], b = v[(i + 1) % 4], va = val(a), vb = val(b);
+    if (va >= 0) o.push(a);
+    if ((va >= 0) !== (vb >= 0)) { const t = va/(va - vb); o.push([a[0] + (b[0] - a[0])*t, a[1] + (b[1] - a[1])*t]); }
+  }
+  return o.length < 3 ? 'polygon(0 0)' : 'polygon(' + o.map(p => p[0] + 'px ' + p[1] + 'px').join(',') + ')';
+}
+function show(px, py) {
+  const {w, h} = geo, dx = w - px, dy = h - py, m = Math.hypot(dx, dy);
+  if (m < 1) { corner.style.display = 'none'; vis(true); return; }
+  corner.style.display = 'block'; vis(false);
+  const nx = dx/m, ny = dy/m, d = (nx*(w + px) + ny*(h + py))/2, n = [nx, ny];
+  const A = Math.atan2(nx, -ny)*180/Math.PI, L = Math.abs(w*nx) + Math.abs(h*ny);
+  const p = d - (nx*w/2 + ny*h/2 - L/2), k = w*.16, S = SHADOW;
+  const g = (c1, x1, c2, x2) => 'linear-gradient(' + A + 'deg,rgba(0,0,0,' + c1*S + ') ' + x1 + 'px,rgba(0,0,0,' + c2*S + ') ' + x2 + 'px)';
+  fr.style.clipPath = clip(n, d, -1); fl.style.clipPath = clip(n, d, 1);
+  fl.style.transform = 'matrix(' + (1 - 2*nx*nx) + ',' + (-2*nx*ny) + ',' + (-2*nx*ny) + ',' + (1 - 2*ny*ny) + ',' + (2*d*nx) + ',' + (2*d*ny) + ')';
+  sF.style.background = g(0, p - k, .3, p);       /* ombre portée sur la page restée en place */
+  sL.style.background = g(.28, p, 0, p + k);      /* ombrage du verso, côté pli */
+  sU.style.background = g(.4, p, 0, p + 1.3*k);   /* ombre sur la page dévoilée */
+}
+function drawCorner() {
+  const {w, h} = geo;
+  if (cs < .5) { corner.style.display = 'none'; vis(true); return; }
+  show(w - cs, h - cs);
+}
+function kick() { if (!looping) { looping = true; requestAnimationFrame(tick); } }
+function tick() {
+  if (busy) { looping = false; return; }
+  let target = 0;
+  if (wantSide) {
+    if (curSide !== wantSide || cornerKey !== wantSide + f) {
+      if (cs > .8) target = 0; else { cs = 0; setSide(wantSide); target = wantS; }
+    } else target = wantS;
+  }
+  cs += (target - cs)*.22;
+  if (Math.abs(target - cs) < .4) cs = target;
+  drawCorner();
+  if (cs !== target) requestAnimationFrame(tick); else looping = false;
+}
+function hover() {
+  if (!lastPt || busy) return;
+  const r = book.getBoundingClientRect(), {w, h} = geo;
+  const x = lastPt.x - r.left, y = lastPt.y - r.top, zone = Math.min(w, h)*.22, dy = h - y;
+  let side = null, d = 0, over = false;
+  if (y >= 0 && y <= h) {
+    if (f < NL && x >= w && x <= 2*w) { over = true; d = Math.max(2*w - x, dy); if (d < zone) side = 'R'; }
+    if (f > 0 && x >= 0 && x < w) { over = true; d = Math.max(x, dy); if (d < zone) side = 'L'; }
+  }
+  $('#stage').style.cursor = over ? 'pointer' : 'default';
+  wantSide = side; wantS = side ? (.04 + .12*(1 - d/zone))*w : 0; kick();
+}
+
+/* ---- tourner une page : le coin décrit un arc autour du bas de la reliure ---- */
+function anim(ms, fn, ease) {
+  return new Promise(res => {
+    const t0 = performance.now();
+    (function step(t) { const p = Math.min(1, (t - t0)/ms); fn(ease(p)); p < 1 ? requestAnimationFrame(step) : res(); })(t0);
+  });
+}
+async function turn(dir) {
+  if (busy || (dir > 0 && f >= NL) || (dir < 0 && f <= 0)) return;
+  busy = true; wantSide = null;
+  const side = dir > 0 ? 'R' : 'L';
+  if (curSide !== side) cs = 0;
+  setSide(side);
+  const {w, h} = geo, s0 = cs, s1 = .24*w;
+  await anim(280, e => { cs = s0 + (s1 - s0)*e; drawCorner(); }, easeO);
+  const r0 = Math.hypot(w - s1, s1), t0 = Math.atan2(s1, w - s1), f0 = f;
+  await anim(TURN_MS, e => {
+    const r = r0 + (w - r0)*e, t = t0 + (Math.PI - t0)*e;
+    show(r*Math.cos(t), h - r*Math.sin(t)); paintBook(f0 + dir*e);
+  }, easeIO);
+  f += dir; cs = 0; cornerKey = ''; curSide = null;
+  corner.style.display = 'none'; vis(true); statics();
+  paintBook(f); ui(); busy = false; hover();
+}
+function ui() {
+  $('#lbl').textContent = (f === 0 ? 'Couverture' : f === NL ? 'Page ' + NP : 'Pages ' + 2*f + ' – ' + (2*f + 1)) + ' / ' + NP;
+  $('#prev').disabled = f === 0; $('#next').disabled = f === NL;
+}
+
+/* ---- interactions ---- */
+const st = $('#stage'); let down = null;
+st.addEventListener('pointermove', e => { lastPt = {x: e.clientX, y: e.clientY}; hover(); });
+st.addEventListener('pointerleave', () => { wantSide = null; kick(); });
+st.addEventListener('pointerdown', e => { down = {x: e.clientX, y: e.clientY}; });
+st.addEventListener('pointerup', e => {
+  if (!down) return;
+  const dx = e.clientX - down.x, dy = e.clientY - down.y; down = null;
+  if (busy) return;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)*1.5) { turn(dx < 0 ? 1 : -1); return; }
+  if (Math.hypot(dx, dy) < 12) {
+    const r = book.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (y < 0 || y > geo.h) return;
+    if (x >= geo.w && x <= 2*geo.w) turn(1); else if (x >= 0 && x < geo.w) turn(-1);
+  }
+});
+addEventListener('keydown', e => {
+  if (!opened) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); introNext(); } return; }
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); turn(1); }
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); turn(-1); }
+});
+$('#prev').onclick = () => turn(-1); $('#next').onclick = () => turn(1);
+$('#full').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+addEventListener('resize', layout);
+
+/* ---- chargement des images : image_1 ... image_18 ---- */
+let lastExt = null;
+const load = src => new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
+async function find(i) {
+  let list;
+  if (FILES && FILES[i - 1]) list = [FOLDER + FILES[i - 1]];
+  else { const exts = lastExt ? [lastExt, ...EXTS.filter(x => x !== lastExt)] : EXTS; list = exts.map(x => FOLDER + 'image_' + i + '.' + x); }
+  for (const c of list) { const im = await load(c); if (im) { lastExt = c.split('.').pop(); return {src: c, w: im.naturalWidth, h: im.naturalHeight}; } }
+  return null;
+}
+function got(i, r) {
+  if (!r) return;
+  pages[i].src = r.src;
+  document.querySelectorAll('.pg[data-i="' + i + '"]').forEach(fill);
+  if (i === 0 && !RATIO) { autoRatio = Math.max(.5, Math.min(2.5, r.w/r.h)); layout(); }
+}
+
+/* ---- écran d'accueil publicitaire : les phrases apparaissent puis disparaissent en douceur ---- */
+const intro = $('#intro'), lines = ['#i1', '#i2', '#i3'].map($);
+const IN = [500, 1900, 3500], OUT = 6400, END = 7400; /* ms : apparitions, début des disparitions, fondu final */
+let opened = false, timers = [];
+const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+function fadeLines() { lines.forEach((l, k) => { l.style.transitionDelay = k*.18 + 's'; l.classList.remove('on'); l.classList.add('off'); }); }
+function openMag() {
+  if (opened) return; opened = true; timers.forEach(clearTimeout);
+  fadeLines(); later(() => { intro.classList.add('out'); $('#ui').style.visibility = 'visible'; }, 500);
+}
+function introNext() { openMag(); } /* clic / Entrée = passer l'intro */
+lines.forEach((l, k) => later(() => l.classList.add('on'), IN[k]));
+later(fadeLines, OUT);
+later(() => { opened = false; openMag(); }, END);
+intro.addEventListener('click', openMag);
+statics(); layout(); ui();
+(async () => {
+  got(0, await find(1));
+  for (let i = 2; i <= NP; i++) find(i).then(r => got(i - 1, r));
+})();
+</script>
+</body>
+</html>
