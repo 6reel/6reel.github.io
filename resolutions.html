@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma bonne résolution</title>
+<style>
+  :root { --red:#d62839; --red-d:#a31621; --gold:#f7c948; --green:#2e9e5b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    min-height: 100vh; overflow-x: hidden; color: #fff;
+    background: radial-gradient(ellipse at 50% 0%, #2b2f77 0%, #141641 55%, #0a0b24 100%);
+    font-family: Georgia, "Iowan Old Style", serif;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 70px 16px 40px; text-align: center;
+  }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  #snow { z-index: 1; } #confetti { z-index: 50; }
+
+  /* Guirlande */
+  .garland { position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 5; display: flex; justify-content: space-around; pointer-events: none; }
+  .garland::before { content: ""; position: absolute; top: 8px; left: -2%; right: -2%; height: 22px; border-bottom: 3px solid #1d5a38; border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+  .bulb { width: 12px; height: 18px; border-radius: 50% 50% 55% 55%; margin-top: 22px; animation: twinkle 1.6s infinite ease-in-out; position: relative; }
+  .bulb::before { content: ""; position: absolute; top: -6px; left: 2px; width: 8px; height: 7px; background: #444; border-radius: 2px; }
+  .bulb:nth-child(4n+1) { background: #ff4d5e; box-shadow: 0 0 14px 4px #ff4d5e99; animation-delay: 0s; }
+  .bulb:nth-child(4n+2) { background: #ffd84d; box-shadow: 0 0 14px 4px #ffd84d99; animation-delay: .4s; }
+  .bulb:nth-child(4n+3) { background: #4dd6ff; box-shadow: 0 0 14px 4px #4dd6ff99; animation-delay: .8s; }
+  .bulb:nth-child(4n+4) { background: #6dff8f; box-shadow: 0 0 14px 4px #6dff8f99; animation-delay: 1.2s; }
+  @keyframes twinkle { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+  main { position: relative; z-index: 10; width: 100%; max-width: 560px; }
+  h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); margin: 10px 0 6px; font-style: italic; text-shadow: 0 0 18px #f7c94877; }
+  h1 .gold { color: var(--gold); }
+  .sub { margin: 0 0 30px; color: #cfd0ff; font-family: system-ui, sans-serif; }
+
+  /* Cadeau */
+  .gift { position: relative; width: 170px; height: 170px; margin: 20px auto 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .gift .glow { position: absolute; left: 50%; bottom: 40px; width: 260px; height: 260px; transform: translateX(-50%) scale(.2); border-radius: 50%;
+    background: radial-gradient(circle, #ffe9a8cc 0%, #f7c94833 45%, transparent 70%); opacity: 0; transition: all .7s ease; }
+  .gift .box { position: absolute; bottom: 0; left: 15px; width: 140px; height: 105px; background: linear-gradient(90deg, var(--red-d), var(--red) 30%, var(--red) 70%, var(--red-d)); border-radius: 4px 4px 10px 10px; box-shadow: 0 12px 30px #0008; }
+  .gift .box::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 22px; transform: translateX(-50%); background: linear-gradient(90deg, #d9a521, var(--gold), #d9a521); }
+  .gift .lid { position: absolute; bottom: 105px; left: 5px; width: 160px; height: 36px; background: linear-gradient(90deg, var(--red-d), #e63946 30%, #e63946 70%, var(--red-d)); border-radius: 6px; box-shadow: 0 4px 10px #0006;
+    transition: transform .6s cubic-bezier(.3,1.6,.5,1), opacity .6s; transform-origin: left bottom; }
+  .gift .lid::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 22px; transform: translateX(-50%); background: linear-gradient(90deg, #d9a521, var(--gold), #d9a521); }
+  .gift .bow { position: absolute; top: -34px; left: 50%; transform: translateX(-50%); font-size: 44px; line-height: 1; filter: drop-shadow(0 2px 3px #0006); }
+  .gift:not(.open):not(.shake) { animation: bob 2.4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-8px) rotate(1deg); } }
+  .gift.shake { animation: shake .12s linear infinite; }
+  @keyframes shake { 0% { transform: rotate(-4deg) translateX(-3px); } 50% { transform: rotate(4deg) translateX(3px); } 100% { transform: rotate(-4deg) translateX(-3px); } }
+  .gift.open .lid { transform: translate(-30px, -90px) rotate(-35deg); opacity: 0; }
+  .gift.open .glow { opacity: 1; transform: translateX(-50%) scale(1); }
+
+  /* Résultat */
+  .result {
+    margin: 26px auto 0; padding: 26px 22px; max-width: 520px; min-height: 120px;
+    border: 2px solid var(--gold); border-radius: 22px;
+    background: linear-gradient(160deg, #ffffff1f, #ffffff0a); backdrop-filter: blur(6px);
+    box-shadow: 0 0 40px #f7c94833; opacity: 0; transform: translateY(20px) scale(.95); transition: all .6s cubic-bezier(.2,1.3,.4,1);
+    display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  }
+  .result.show { opacity: 1; transform: none; }
+  .result small { font-family: system-ui, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-size: .75rem; }
+  .result p { margin: 0; font-size: clamp(1.3rem, 5vw, 1.9rem); font-style: italic; line-height: 1.35; }
+
+  button {
+    margin-top: 26px; font: 600 1.1rem system-ui, sans-serif; color: #3a2600; cursor: pointer;
+    background: linear-gradient(180deg, #ffe27a, var(--gold)); border: none; border-radius: 999px; padding: 15px 34px;
+    box-shadow: 0 6px 0 #b98a14, 0 12px 24px #0006; transition: transform .1s, box-shadow .1s;
+  }
+  button:active { transform: translateY(4px); box-shadow: 0 2px 0 #b98a14, 0 6px 14px #0006; }
+  button:disabled { opacity: .6; cursor: wait; }
+  footer { position: relative; z-index: 10; margin-top: auto; padding-top: 30px; color: #9a9cd6; font-family: system-ui, sans-serif; font-size: .85rem; }
+</style>
+</head>
+<body>
+  <canvas id="snow"></canvas>
+  <canvas id="confetti"></canvas>
+  <div class="garland" id="garland"></div>
+
+  <main>
+    <h1>🎄 Ma bonne résolution <span class="gold">2027</span> ✨</h1>
+    <p class="sub">Ouvre le cadeau et découvre ce que le sort te réserve…</p>
+
+    <div class="gift" id="gift" role="button" aria-label="Ouvrir le cadeau" tabindex="0">
+      <div class="glow"></div>
+      <div class="box"></div>
+      <div class="lid"><span class="bow">🎀</span></div>
+    </div>
+
+    <div class="result" id="result" aria-live="polite">
+      <small>Ta résolution</small>
+      <p id="text"></p>
+    </div>
+
+    <button id="btn">Ouvrir le cadeau 🎁</button>
+  </main>
+
+  <footer>Joyeuses fêtes et bonne année ! 🥂</footer>
+
+<script>
+  /* ============================================================
+     ✏️  TA LISTE DE RÉSOLUTIONS — remplace les exemples ci-dessous.
+     Une résolution par ligne, entre guillemets, séparées par une virgule.
+     ============================================================ */
+  const RESOLUTIONS = [
+    "Arrêter d’envoyer les élèves ranger le matériel dans la réserve EPS",
+    "Faire de vrais séances EPS",
+    "Ne pas chercher systématiquement à ne pas sortir le matériel pendant la récréation",
+    "Faire de vrais séances d’Arts Plastiques",
+    "Aider à ranger la réserve A",
+    "Ne pas stocker les mugs dans ma classe",
+    "Être synthétique quand je parle à mes collègues",
+    "Apprendre à dire Non à des projets",
+    "Écouter en conseil, ça évitera de demander tout le temps ce qu’il faut faire",
+    "Ne pas râler systématiquement contre les parents",
+    "Organiser plus souvent des repas à l’école",
+    "Ne pas repousser mes livrets d’évaluation jusqu’à la dernière minute",
+    "Arrêter de faire des blagues misogynes, racistes ou graveleuses",
+    "Faire preuve d’une patience infinie avec ses élèves",
+    "Ne plus parler boulot pendant la pause repas",
+    "Ne plus envoyer de mail avec juste « merci » dedans",
+    "Ne plus stocker de manuels ou de séances datant d’avant 2015",
+    "Préparer le spectacle de fin d’année longtemps à l’avance",
+    "Organiser quelque chose de festif pour les collègues de l’école",
+    "Prendre soin de sa santé physique et mentale",
+    "Aller moins souvent chez Ange",
+    "Réfléchir avant de parler"
+  ];
+
+  const $ = id => document.getElementById(id);
+
+  /* ---------- Guirlande ---------- */
+  (function () {
+    const g = $("garland"), n = Math.max(10, Math.floor(innerWidth / 55));
+    for (let i = 0; i < n; i++) { const b = document.createElement("div"); b.className = "bulb"; g.appendChild(b); }
+  })();
+
+  /* ---------- Neige ---------- */
+  const snow = $("snow"), sctx = snow.getContext("2d");
+  let flakes = [];
+  function sizeCanvas(c) { c.width = innerWidth; c.height = innerHeight; }
+  function initSnow() {
+    sizeCanvas(snow);
+    flakes = Array.from({ length: Math.min(140, Math.floor(innerWidth / 8)) }, () => ({
+      x: Math.random() * snow.width, y: Math.random() * snow.height,
+      r: Math.random() * 2.6 + .8, v: Math.random() * 0.9 + .4, d: Math.random() * Math.PI * 2
+    }));
+  }
+  function drawSnow() {
+    sctx.clearRect(0, 0, snow.width, snow.height);
+    sctx.fillStyle = "rgba(255,255,255,.85)";
+    for (const f of flakes) {
+      f.d += .01; f.y += f.v; f.x += Math.sin(f.d) * .5;
+      if (f.y > snow.height + 5) { f.y = -5; f.x = Math.random() * snow.width; }
+      sctx.beginPath(); sctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); sctx.fill();
+    }
+    requestAnimationFrame(drawSnow);
+  }
+  initSnow(); drawSnow();
+
+  /* ---------- Confettis ---------- */
+  const conf = $("confetti"), cctx = conf.getContext("2d");
+  let pieces = [], running = false;
+  const COLORS = ["#ff4d5e", "#ffd84d", "#4dd6ff", "#6dff8f", "#ffffff", "#ff9ff3"];
+  function resizeAll() { sizeCanvas(conf); initSnow(); }
+  addEventListener("resize", resizeAll); sizeCanvas(conf);
+
+  function burst(x, y) {
+    for (let i = 0; i < 130; i++) {
+      const a = -Math.PI / 2 + (Math.random() - .5) * 1.9, s = Math.random() * 12 + 5;
+      pieces.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, w: Math.random() * 8 + 4, h: Math.random() * 5 + 3,
+        rot: Math.random() * 6, vr: (Math.random() - .5) * .4, c: COLORS[(Math.random() * COLORS.length) | 0], life: 1 });
+    }
+    if (!running) { running = true; requestAnimationFrame(stepConf); }
+  }
+  function stepConf() {
+    cctx.clearRect(0, 0, conf.width, conf.height);
+    pieces = pieces.filter(p => p.y < conf.height + 20 && p.life > 0);
+    for (const p of pieces) {
+      p.vy += .28; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life -= .004;
+      cctx.save(); cctx.translate(p.x, p.y); cctx.rotate(p.rot);
+      cctx.globalAlpha = Math.max(p.life, 0); cctx.fillStyle = p.c; cctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); cctx.restore();
+    }
+    if (pieces.length) requestAnimationFrame(stepConf); else running = false;
+  }
+
+  /* ---------- Tirage (sans répétition tant que tout n'est pas sorti) ---------- */
+  let bag = [], last = null, busy = false;
+  function nextResolution() {
+    if (!bag.length) {
+      bag = RESOLUTIONS.slice().sort(() => Math.random() - .5);
+      if (bag.length > 1 && bag[bag.length - 1] === last) bag.unshift(bag.pop());
+    }
+    last = bag.pop();
+    return last;
+  }
+
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  async function openGift() {
+    if (busy || !RESOLUTIONS.length) return;
+    busy = true; $("btn").disabled = true;
+    const gift = $("gift"), res = $("result");
+
+    if (gift.classList.contains("open")) {       // refermer l'ancien cadeau
+      res.classList.remove("show"); gift.classList.remove("open"); await wait(700);
+    }
+    const choice = nextResolution();
+    gift.classList.add("shake"); await wait(900);
+    gift.classList.remove("shake"); gift.classList.add("open");
+
+    const r = gift.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + 40);
+    await wait(250);
+    burst(r.left + r.width / 2, r.top + 40);
+
+    $("text").textContent = choice;
+    res.classList.add("show");
+    $("btn").textContent = "Un autre cadeau 🎁";
+    $("btn").disabled = false; busy = false;
+  }
+
+  $("btn").addEventListener("click", openGift);
+  $("gift").addEventListener("click", openGift);
+  $("gift").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGift(); } });
+</script>
+</body>
+</html>
